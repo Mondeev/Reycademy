@@ -12,10 +12,6 @@ Reycademy is a free IT learning site made for Filipinos. It offers Tagalog video
 
 https://reycademy.netlify.app
 
-### Documentation
-
-[DOCUMENTATION.md](DOCUMENTATION.md)
-
 ---
 
 ## Screenshot
