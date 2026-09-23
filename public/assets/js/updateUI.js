@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const profile = document.querySelector("#profile-container");
   const logoutBtn = document.getElementById("logout");
 
-  logInButton.classList.add("show");
-  profile.classList.remove("show");
+  if (logInButton) logInButton.classList.add("show");
+  if (profile) profile.classList.remove("show");
 
   function popUp() {
     const popUp = document.getElementById("cookie-consent");
@@ -41,7 +41,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await res.json();
 
       if (result.loggedIn) {
+        const initial = (result.username.charAt(0) || "R").toUpperCase();
         nameDisplay.textContent = result.username;
+        // Sidebar avatar fallback (uses the profile image if present, else the
+        // gradient badge with the username initial)
+        const sidebarAvatar = document.querySelector("#sidebar-avatar");
+        if (sidebarAvatar) {
+          sidebarAvatar.textContent = initial;
+        }
+        const sidebarSmall = document.querySelector("#sidebar-username small");
+        if (sidebarSmall) {
+          sidebarSmall.textContent = "@" + result.username;
+        }
         logInButton.classList.remove("show");
         profile.classList.add("show");
 
@@ -69,6 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  logoutBtn.addEventListener("click", logOut);
+  if (logoutBtn) logoutBtn.addEventListener("click", logOut);
   UpdateUI();
 });

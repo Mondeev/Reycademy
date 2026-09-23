@@ -3,6 +3,8 @@
     <head>
         <title>Reycademy</title>
 
+        <script>document.documentElement.classList.add('js-enabled');</script>
+
         <link rel="icon" href="assets/images/reycademy.png" type="image/png">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/sidebar.css">
@@ -10,181 +12,344 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-<body>
+ <body>
 
-    <header> 
-        <div id="brand">
-            <div id="profile-container">
-                <img src="assets/images/reycademy.png" id="profile">
-            </div>
-        
-            <a href="/login" id="login-button"><i class="fas fa-user"></i>Login</a>
-            <button id="hamburger-icon">&#9776;</button> 
-        </div>        
-        
-        <nav>
-            <ul>
-                <li class="section-bar"><a href="#hero"><i class="fas fa-home nav-icon" aria-hidden="true"></i><span class="nav-text">Home</span></a></li>
-                <li class="section-bar"><a href="about.html" target="_blank"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span class="nav-text">About</span></a></li>
-                <li class="section-bar"><a href="#videos"><i class="fas fa-video nav-icon" aria-hidden="true"></i><span class="nav-text">Videos</span></a></li>
-                <li class="section-bar"><a href="#paths"><i class="fas fa-route nav-icon" aria-hidden="true"></i><span class="nav-text">Paths</span></a></li>
-                <li class="section-bar"><a href="#paths"><i class="fas fa-flag-checkered nav-icon" aria-hidden="true"></i><span class="nav-text">Challenges</span></a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <nav>
-        <div id="sidebar">   
-            <div id="user-info">
-                <h2 id="username-display">Guest</h2>
-                <h3 id="hide-sideBar">X</h3>
-            </div>   
+     <!-- ===== HEADER (modern SaaS nav bar) ===== -->
+     <header>
+         <div id="brand">
+             <div id="brand-group">
+                 <div id="brand-logo" aria-hidden="true">R</div>
+                 <div id="brand-text">
+                     <span id="brand-name">Reycademy</span>
+                     <span id="brand-tagline">Free IT tutorials in Tagalog</span>
+                 </div>
+             </div>
+          </div>
 
-            <div class="menu-item">Dashboard</div>
-            <div class="menu-item">Profile</div>
-            <div class="menu-item">Settings</div>
-            <a href="" id="logout">Log Out</a>
-        </div>
-    </nav>  
+         <nav id="main-nav">
+             <ul>
+                 <li><a href="#hero" class="nav-link active"><i class="fas fa-home nav-icon" aria-hidden="true"></i><span>Home</span></a></li>
+                 <li><a href="about.html" target="_blank" class="nav-link"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span>About</span></a></li>
+                 <li><a href="#videos" class="nav-link"><i class="fas fa-video nav-icon" aria-hidden="true"></i><span>Videos</span></a></li>
+                 <li><a href="#paths" class="nav-link"><i class="fas fa-route nav-icon" aria-hidden="true"></i><span>Paths</span></a></li>
+                 <li><a href="#paths" class="nav-link"><i class="fas fa-flag-checkered nav-icon" aria-hidden="true"></i><span>Challenges</span></a></li>
+                 <li><a href="#faq" class="nav-link"><i class="fas fa-circle-question nav-icon" aria-hidden="true"></i><span>FAQ</span></a></li>
+             </ul>
+         </nav>
 
-    <main>  
-        <div id="cookie-consent">
-            <div id="pop-up">
-                <p>Reycademy uses cookies only to <strong>remember your learning progress</strong>. No tracking, no ads.</p>
-                <button id="pop-up-button">Got it!</button>
-            </div>
+         <div id="nav-actions">
+             <div id="profile-container">
+                 <img src="assets/images/reycademy.png" id="profile" alt="Reycademy Logo">
+             </div>
+             <button id="hamburger-icon" aria-label="Toggle navigation" aria-expanded="false">
+                  <span class="hamburger-line"></span>
+                  <span class="hamburger-line"></span>
+                  <span class="hamburger-line"></span>
+              </button>
          </div>
-        <section id="hero">
-            <div class="hero-image">
-                <img src="assets\images\reycademy.png" alt="Reymond - Creator of Reycademy">
-            </div>
-            
-            <div class="hero-content">
-                <div id="hero-brand">
-                    <h1>Reycademy</h1>
-                    <div id="pre-release">Pre-Release</div>
-                </div>
-                <p>A personal academy where I share my cybersecurity knowledge in Tagalog, organized way for free while also tracking my progress.</p>
-                <p class="author">Created by <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank">Reymond Joaquin</a></p>
-                
-                <div class="cta">
-                    <a href="#videos" class="btn primary">Get Started</a>
-                    <a href="/login" class="btn secondary">Learn More</a>
-                </div>
-            </div>
-        </section>
+     </header>
 
-        <section id="video-introduction">
-            <h2>Why Reycademy?</h2>
-            <p>Reycademy simplifies learning and makes cybersecurity accessible for everyone. Get step-by-step guidance, practical exercises, and free resources all in Tagalog, so you can learn comfortably in your own language.</p>
+     <!-- ===== SIDEBAR (modern SaaS side panel — landing page) ===== -->
+     <div id="sidebar-overlay"></div>
+     <div id="sidebar">
+         <div id="sidebar-top">
+             <div id="sidebar-brand">
+                 <div id="sidebar-logo" aria-hidden="true">R</div>
+                 <div id="sidebar-text">
+                     <span id="sidebar-name">Reycademy</span>
+                     <span id="sidebar-tagline">Free IT tutorials in Tagalog</span>
+                 </div>
+             </div>
+             <button id="hide-sideBar" aria-label="Close menu">&#10005;</button>
+         </div>
 
-            <div class="why-points">
-                <div class="why-item">
-                    <i class="fas fa-language"></i>
-                    <span>Learn cybersecurity in Tagalog</span>
-                </div>
+         <nav class="sidebar-nav">
+                  <div class="sidebar-group">
+                      <span class="sidebar-group-title first">Explore</span>
+                      <a href="#hero" class="menu-item active" data-route="home"><i class="fas fa-home"></i> Home</a>
+                      <a href="#video-introduction" class="menu-item" data-route="why"><i class="fas fa-lightbulb"></i> About</a>
+                      <a href="#why-features" class="menu-item" data-route="features"><i class="fas fa-cogs"></i> Features</a>
+                      <a href="#videos" class="menu-item" data-route="videos"><i class="fas fa-video"></i> Videos</a>
+                      <a href="#faq" class="menu-item" data-route="faq"><i class="fas fa-circle-question"></i> FAQ</a>
+                  </div>
+                  <div class="sidebar-group">
+                      <span class="sidebar-group-title">Learn</span>
+                      <a href="#paths" class="menu-item" data-route="paths"><i class="fas fa-route"></i> Paths</a>
+                      <a href="#paths" class="menu-item" data-route="challenges"><i class="fas fa-flag-checkered"></i> Challenges</a>
+                  </div>
+              </nav>
 
-                <div class="why-item">
-                    <i class="fas fa-route"></i>
-                    <span>Step-by-step guided learning paths</span>
-                </div>
+         <div id="sidebar-bottom">
+             <a href="/login" class="sidebar-cta secondary"><i class="fas fa-user"></i> Sign In</a>
+             <a href="#videos" class="sidebar-cta primary"><i class="fas fa-rocket"></i> Get Started</a>
+         </div>
+     </div>
 
-                <div class="why-item">
-                    <i class="fas fa-laptop-code"></i>
-                    <span>Hands-on practical demonstrations</span>
-                </div>
+     <main>
+         <!-- ===== COOKIE CONSENT ===== -->
+         <div id="cookie-consent">
+             <div id="pop-up">
+                 <p>Reycademy uses cookies only to <strong>remember your learning progress</strong>. No tracking, no ads.</p>
+                 <button id="pop-up-button">Got it!</button>
+             </div>
+         </div>
 
-                <div class="why-item">
-                    <i class="fas fa-coins"></i>
-                    <span>100% free and accessible</span>
-                </div>
-            </div>
+         <!-- ===== HERO (modern SaaS) ===== -->
+         <section id="hero">
+             <div class="hero-particles" aria-hidden="true">
+                 <span class="particle p1"></span>
+                 <span class="particle p2"></span>
+                 <span class="particle p3"></span>
+                 <span class="particle p4"></span>
+                 <span class="particle p5"></span>
+                 <span class="particle p6"></span>
+                 <span class="particle p7"></span>
+                 <span class="particle p8"></span>
+             </div>
+             <div class="hero-content">
+                 <div id="hero-kicker" class="animate-on-scroll">
+                     <span class="kicker-pill"><i class="fas fa-eye"></i> 2,500+ Visitors</span>
+                 </div>
 
-            <iframe src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=nGKYIrUZzDdq1R6C" title="YouTube video player" allowfullscreen></iframe>
-        </section>
+                 <div id="hero-brand">
+                     <h1 class="hero-tagline animate-on-scroll">
+                         <span class="tl-line">We Teach You</span>
+                         <span class="tl-line">The tagalog way</span>
+                     </h1>
+                     <p class="hero-explain animate-on-scroll">Free lessons in Tagalog — from IT basics to real-world tech skills. Learn at your own pace, no experience needed.</p>
+                 </div>
 
-        <section id="videos">
+                 <div class="cta animate-on-scroll">
+                     <a href="#videos" class="btn primary"><i class="fas fa-rocket"></i> Get Started</a>
+                     <a href="#videos" class="btn secondary"><i class="fas fa-play"></i> Watch Free Videos</a>
+                 </div>
 
-            <h2>Reycademy Videos</h2>
-            <p>Access to all of my videos with hands-on training for free!</p>
+                 <div class="hero-stats animate-on-scroll">
+                     <div class="stat-card">
+                         <i class="fas fa-users"></i>
+                         <strong>2,500+</strong>
+                         <span>Learners</span>
+                     </div>
+                     <div class="stat-card">
+                         <i class="fas fa-book"></i>
+                         <strong>40+</strong>
+                         <span>Lessons</span>
+                     </div>
+                     <div class="stat-card">
+                         <i class="fas fa-route"></i>
+                         <strong>5</strong>
+                         <span>Learning paths</span>
+                     </div>
+                 </div>
+             </div>
+          </section>
 
-            <div id="search-container">       
-                <input type="search" placeholder="Search Videos..." maxlength="40" id="search-bar">
-                <i class="fas fa-magnifying-glass" id="search-icon"></i>
-                <div id="suggestions">
-                    <ul>
-                        <li data-category="linux-vids" data-ep="linux-one" class="episodes">Linux 1</li>
-                        <li data-category="linux-vids" data-ep="linux-two" class="episodes">Linux 2</li>
-                        <li data-category="linux-vids" data-ep="linux-three" class="episodes">Linux 3</li>
+         <!-- ===== WHY REYCADEMY ===== -->
+         <section id="video-introduction">
+             <div class="why-header animate-on-scroll">
+                 <h2><span class="why-word">Why</span> <span class="why-brand">Reycademy?</span></h2>
+                 <p>Reycademy makes IT simple and accessible for everyone. Get step-by-step guidance, hands-on labs, and free resources — all in Tagalog — so you can learn the skills you need, comfortably in your own language.</p>
+             </div>
 
-                        <li data-category="networking-vids" data-ep="networking-one" class="episodes">Networking 1</li>
-                        <li data-category="networking-vids" data-ep="networking-two" class="episodes">Networking 2</li>
-                        <li data-category="networking-vids" data-ep="networking-three" class="episodes">Networking 3</li>
+             <div class="video-preview animate-on-scroll">
+                 <div class="video-preview-inner">
+                     <div class="video-preview-kicker"><i class="fas fa-play-circle"></i> Quick Walkthrough</div>
+                     <iframe src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=nGKYIrUZzDdq1R6C" title="YouTube video player" allowfullscreen></iframe>
+                     <div class="video-play-badge"><i class="fas fa-play"></i></div>
+                 </div>
+             </div>
+         </section>
 
-                        <li data-category="programming-vids" data-ep="programming-one" class="episodes">Python 1</li>
-                        <li data-category="programming-vids" data-ep="programming-two" class="episodes">Python 2</li>
-                        <li data-category="programming-vids" data-ep="programming-three" class="episodes">Python 3</li>
+         <!-- ===== WHY FEATURES ===== -->
+         <section id="why-features">
+             <div class="why-grid-heading animate-on-scroll"><i class="fas fa-sparkles"></i><span class="gh-word"> 4 reasons to</span><span class="gh-brand"> start today</span></div>
+             <p class="why-features-sub animate-on-scroll">Four things that make Reycademy the right place to start your IT journey — simple, hands-on, and 100% free.</p>
 
-                        <li data-category="web-tech-vids" data-ep="web-tech-one" class="episodes">HTML 1</li>
-                        <li data-category="web-tech-vids" data-ep="web-tech-two" class="episodes">HTML 2</li>
-                        <li data-category="web-tech-vids" data-ep="web-tech-three" class="episodes">HTML 3</li> 
-                    </ul>
-                </div>
-            </div>
+             <div class="why-grid">
+                 <div class="why-card animate-on-scroll">
+                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
+                     <div class="why-icon"><i class="fas fa-language"></i></div>
+                     <h3>Learn in Tagalog</h3>
+                     <p>IT lessons explained in plain Tagalog — no confusing jargon, just concepts you can actually use.</p>
+                 </div>
+                 <div class="why-card animate-on-scroll">
+                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
+                     <div class="why-icon"><i class="fas fa-route"></i></div>
+                     <h3>Guided Paths</h3>
+                     <p>Structured learning tracks that take you from zero basics to real-world projects, step by step.</p>
+                 </div>
+                 <div class="why-card animate-on-scroll">
+                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
+                     <div class="why-icon"><i class="fas fa-laptop-code"></i></div>
+                     <h3>Real IT Skills</h3>
+                     <p>Hands-on labs and practical exercises so you can actually apply what you learn, not just read about it.</p>
+                 </div>
+                 <div class="why-card animate-on-scroll">
+                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
+                     <div class="why-icon"><i class="fas fa-coins"></i></div>
+                     <h3>100% Free</h3>
+                     <p>No paid courses, no hidden fees. All IT content is completely free for anyone who wants to learn.</p>
+                 </div>
+             </div>
+         </section>
 
-            <div id="video-container">
-                <div class="video-bar" data-category="all">
-                    <h3>All</h3>
-                </div>
+         <!-- ===== FEATURED VIDEOS (teasers) ===== -->
+         <section id="videos">
+             <div class="videos-header animate-on-scroll">
+                 <h2><span class="fv-word">Featured</span> <span class="fv-brand">Videos</span></h2>
+                 <p>A quick taste of what's inside — full library on the videos page.</p>
+             </div>
 
-                <div class="video-bar" data-category="linux-vids">
-                    <h3>Linux</h3>
-                </div>
+             <div id="teaser-list" class="teaser-grid">
+                 <div class="teaser-card animate-on-scroll">
+                     <div class="teaser-thumb">
+                         <iframe src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=nGKYIrUZzDdq1R6C" title="Featured video" allowfullscreen></iframe>
+                         <div class="teaser-badge"><i class="fas fa-play-circle"></i> 4 min</div>
+                     </div>
+                     <h3>IT Basics in Tagalog</h3>
+                     <p>Start with the fundamentals — what IT really is and why it matters.</p>
+                 </div>
+                 <div class="teaser-card animate-on-scroll">
+                     <div class="teaser-thumb">
+                         <iframe src="https://www.youtube.com/embed/8S4QrOL8fYg" title="Featured video" allowfullscreen></iframe>
+                         <div class="teaser-badge"><i class="fas fa-play-circle"></i> 6 min</div>
+                     </div>
+                     <h3>Setting Up Your First Lab</h3>
+                     <p>Install the tools you need and build your own practice environment.</p>
+                 </div>
+                 <div class="teaser-card animate-on-scroll">
+                     <div class="teaser-thumb">
+                         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Featured video" allowfullscreen></iframe>
+                         <div class="teaser-badge"><i class="fas fa-play-circle"></i> 5 min</div>
+                     </div>
+                     <h3>Where to Start Learning IT</h3>
+                     <p>A clear roadmap from zero to real-world skills.</p>
+                 </div>
+             </div>
 
-                <div class="video-bar" data-category="networking-vids">
-                    <h3>Networking</h3>
-                </div>
+             <div class="teaser-cta animate-on-scroll">
+                 <a href="videos.html" class="btn primary"><i class="fas fa-play-circle"></i> See All Videos</a>
+             </div>
+         </section>
 
-                <div class="video-bar" data-category="programming-vids">
-                    <h3>Programming</h3>
-                </div>
+     <!-- ===== FAQ ===== -->
+     <section id="faq">
+         <div class="faq-container animate-on-scroll">
+             <h2><span class="faq-word">Frequently</span> <span class="faq-brand">Asked</span></h2>
+             <p class="faq-subtitle">Common questions about learning IT with Reycademy.</p>
 
-                <div class="video-bar" data-category="web-tech-vids">
-                    <h3>Web Dev</h3>
-                </div>
-            </div>
+             <div class="faq-list">
+                 <div class="faq-item">
+                     <button class="faq-question">
+                         Is Reycademy really free?
+                         <i class="fas fa-chevron-down"></i>
+                     </button>
+                     <div class="faq-answer">
+                         <p>Yes! All lessons, videos, and resources on Reycademy are completely free. No paid courses, no hidden fees, and no subscriptions — ever.</p>
+                     </div>
+                 </div>
 
-            <div id="video-list">
-                <!-- Videos will be dynamically loaded here -->
-            </div>
+                 <div class="faq-item">
+                     <button class="faq-question">
+                         Do I need prior IT experience?
+                         <i class="fas fa-chevron-down"></i>
+                     </button>
+                     <div class="faq-answer">
+                         <p>Not at all. Every course starts from the basics and builds up step by step. If you can use a computer, you can start here.</p>
+                     </div>
+                 </div>
 
-        </section>
-    </main>
+                 <div class="faq-item">
+                     <button class="faq-question">
+                         Are the lessons in Tagalog?
+                         <i class="fas fa-chevron-down"></i>
+                     </button>
+                     <div class="faq-answer">
+                         <p>Yes — all lessons, explanations, and walkthroughs are in plain Tagalog. No confusing technical jargon, just concepts you can actually understand.</p>
+                     </div>
+                 </div>
 
-    <footer>
-        <div id="platforms">
-            <a href="https://www.youtube.com/@reycademy" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-youtube"  class="icon-links"></i>
-            </a>
-            <a href="https://github.com/R3ym0nd0" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-github"  class="icon-links"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-linkedin" class="icon-links"></i>
-            </a>
-            <a href="https://mail.google.com/mail/u/0/#search/in%3Asent+raymondjoaquin50%40gmail.com" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-envelope"  class="icon-links"></i>
-            </a>
-        </div>
+                 <div class="faq-item">
+                     <button class="faq-question">
+                         How long does each lesson take?
+                         <i class="fas fa-chevron-down"></i>
+                     </button>
+                     <div class="faq-answer">
+                         <p>Lessons are bite-sized — most run between 4 to 10 minutes. You can complete them whenever you have time, and track your progress at your own pace.</p>
+                     </div>
+                 </div>
 
-        <p>&copy; 2025 Reycademy. All rights reserved.</p>
-        
-        <a href="terms.html" class="legal-container">Terms of Use</a> |
-        <a href="privacy.html" class="legal-container">Privacy Policy</a>
-    </footer>
+                 <div class="faq-item">
+                     <button class="faq-question">
+                         What can I learn here?
+                         <i class="fas fa-chevron-down"></i>
+                     </button>
+                     <div class="faq-answer">
+                         <p>From IT fundamentals, Linux, networking, and programming, to web development and real-world lab practice. New topics are added regularly.</p>
+                     </div>
+                 </div>
 
-    <script src="assets/js/bar.js"></script>
-    <script src="assets/js/searchBar.js"></script>
-    <script src="assets/js/updateUI.js"></script>
-</body>
-</html> 
+                 <div class="faq-item">
+                     <button class="faq-question">
+                         Do I need to create an account?
+                         <i class="fas fa-chevron-down"></i>
+                     </button>
+                     <div class="faq-answer">
+                         <p>Not to browse — anyone can watch videos and read lessons. Creating an account (free) lets you save your progress, track what you've learned, and unlock features like quizzes and challenges.</p>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+     <!-- ===== FOOTER ===== -->
+     <footer>
+         <div class="footer-content">
+             <div class="footer-brand">
+                 <div class="footer-logo-badge" aria-hidden="true">R</div>
+                 <div class="footer-brand-text">
+                     <span class="footer-brand-name">Reycademy</span>
+                     <span class="footer-brand-tagline">Free IT tutorials in Tagalog</span>
+                 </div>
+             </div>
+
+             <div class="footer-columns">
+                 <div class="footer-col">
+                     <h4>Explore</h4>
+                     <a href="#hero">Home</a>
+                     <a href="about.html" target="_blank">About</a>
+                     <a href="#videos">Videos</a>
+                     <a href="#paths">Paths</a>
+                 </div>
+                 <div class="footer-col">
+                     <h4>Resources</h4>
+                     <a href="#videos">Video Tutorials</a>
+                     <a href="#paths">Learning Paths</a>
+                     <a href="#paths">Challenges</a>
+                     <a href="#">Cheatsheets</a>
+                 </div>
+                 <div class="footer-col">
+                     <h4>Connect</h4>
+                     <a href="https://www.youtube.com/@reycademy" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> YouTube</a>
+                     <a href="https://github.com/R3ym0nd0" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                     <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                     <a href="mailto:raymondjoaquin50@gmail.com"><i class="fas fa-envelope"></i> Contact</a>
+                 </div>
+             </div>
+         </div>
+         <div class="footer-bottom">
+             <p>&copy; <span id="footer-year">2025</span> Reycademy. All rights reserved.</p>
+             <div class="legal-links">
+                 <a href="terms.html" class="legal-container">Terms of Use</a>
+                 <a href="privacy.html" class="legal-container">Privacy Policy</a>
+             </div>
+         </div>
+     </footer>
+
+     <script src="assets/js/faq.js"></script>
+        <script src="assets/js/bar.js"></script>
+        <script src="assets/js/searchBar.js"></script>
+        <script src="assets/js/updateUI.js"></script>
+        <script src="assets/js/scrollAnimations.js"></script>
+ </body>
+ </html>

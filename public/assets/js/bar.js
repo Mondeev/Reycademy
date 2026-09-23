@@ -1,34 +1,64 @@
-// ===== Mobile Nav Bar Show | Hide =====
-const hamburgerBar = document.querySelector("#hamburger-icon");
-const navBar = document.querySelector("nav ul");
-const header = document.querySelector("header");
-
-hamburgerBar.addEventListener("click", () => {
-    if (navBar.classList.contains("show")) {
-        hamburgerBar.style.color = "white";
-        navBar.classList.remove("show");
-        header.style.backgroundColor = "rgba(5, 25, 40, 0.9)";
-    } else {
-        hamburgerBar.style.color = "rgb(84, 207, 255)"
-        navBar.classList.add("show");
-        header.style.backgroundColor = "rgba(5, 25, 40, 0.9)";
-
-    }
-});
-
-// ===== Side Bar Show | Hide =====
+// ===== Side Bar Show | Hide (right-side full-height panel) =====
 const hideSideBar = document.querySelector("#hide-sideBar");
 const sideBar = document.querySelector("#sidebar");
-const profile = document.querySelector("#profile")
+const sidebarOverlay = document.querySelector("#sidebar-overlay");
+const hamburgerBar = document.querySelector("#hamburger-icon");
+const navBar = document.querySelector("#main-nav ul");
+const profile = document.querySelector("#profile");
 
-profile.addEventListener("click", () => {
+function openSidebar() {
     sideBar.classList.add("show");
-    navBar.classList.remove("show");
-    header.style.backgroundColor = "rgb(13, 27, 53)";
-    hamburgerBar.style.color = "white";
+    if (sidebarOverlay) sidebarOverlay.classList.add("show");
+    // Close the header dropdown if it's open
+    if (navBar) navBar.classList.remove("show");
+    if (hamburgerBar) {
+        hamburgerBar.classList.add("active");
+        hamburgerBar.setAttribute("aria-expanded", "true");
+    }
+}
 
-    hideSideBar.addEventListener("click", () => {
-        sideBar.classList.remove("show"); 
-    }); 
-    
+function closeSidebar() {
+    sideBar.classList.remove("show");
+    if (sidebarOverlay) sidebarOverlay.classList.remove("show");
+    if (hamburgerBar) {
+        hamburgerBar.classList.remove("active");
+        hamburgerBar.setAttribute("aria-expanded", "false");
+    }
+}
+
+// Profile avatar opens the right-side sidebar
+if (profile) {
+    profile.addEventListener("click", (e) => {
+        e.preventDefault();
+        openSidebar();
+    });
+}
+
+// Hamburger also opens the right-side sidebar (mobile)
+if (hamburgerBar) {
+    hamburgerBar.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (sideBar.classList.contains("show")) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+}
+
+// Close button inside the sidebar
+if (hideSideBar) {
+    hideSideBar.addEventListener("click", closeSidebar);
+}
+
+// Clicking the backdrop closes the sidebar
+if (sidebarOverlay) {
+    sidebarOverlay.addEventListener("click", closeSidebar);
+}
+
+// Close sidebar on Escape key
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sideBar.classList.contains("show")) {
+        closeSidebar();
+    }
 });
