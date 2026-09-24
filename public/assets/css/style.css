@@ -259,14 +259,38 @@ header.scrolled {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) and (max-width: 1249px) {
     #main-nav ul {
-        position: static;
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
+        gap: 0.15rem;
+    }
+
+    /* Hide icons on the horizontal bar — they're for the sidebar.
+       Saves width so all 7 links + 2 CTAs fit without overflowing. */
+    #main-nav .nav-icon {
+        display: none;
+    }
+
+    .nav-link {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.82rem;
+        gap: 0;
+    }
+}
+
+@media (min-width: 1250px) {
+    #main-nav .nav-icon {
+        display: inline-block;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.9rem;
+        gap: 0.5rem;
     }
 }
 
@@ -370,6 +394,51 @@ header.scrolled {
     box-shadow: 0 6px 20px var(--color-primary-glow);
 }
 
+/* ===== Nav CTA buttons (Sign In / Sign Up) =====
+   Hidden on mobile and tablet — the sidebar is the primary nav there.
+   Only show at desktop (1024px+) where the horizontal bar has room. */
+.nav-cta {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.nav-cta i {
+    font-size: 0.85rem;
+}
+
+.nav-cta.secondary {
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border-light);
+}
+
+.nav-cta.secondary:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: rgba(251, 146, 60, 0.08);
+    transform: translateY(-2px);
+}
+
+.nav-cta.primary {
+    color: #0f172a;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    box-shadow: 0 4px 14px var(--color-primary-glow);
+}
+
+.nav-cta.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--color-secondary-glow);
+}
+
 #hamburger-icon {
     display: flex;
     flex-direction: column;
@@ -422,8 +491,10 @@ header.scrolled {
     background: var(--color-primary);
 }
 
-/* ===== Mobile dropdown menu ===== */
-@media (max-width: 767px) {
+/* ===== Mobile + Tablet dropdown menu =====
+   The horizontal bar overflows below 1024px, so the hamburger + sidebar stay
+   as the primary nav until 1024px, where the optimized horizontal bar starts. */
+@media (max-width: 1023px) {
     #main-nav ul {
         display: none;
     }
@@ -903,34 +974,6 @@ header.scrolled {
     display: block;
 }
 
-.video-play-badge {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 58px;
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(3px);
-    border: 2px solid rgba(255, 255, 255, 0.85);
-    pointer-events: none;
-    transition: transform var(--transition-fast);
-}
-
-.video-preview:hover .video-play-badge {
-    transform: translate(-50%, -50%) scale(1.06);
-}
-
-.video-play-badge i {
-    font-size: 1.25rem;
-    color: #fff;
-    margin-left: 3px;
-}
-
 .video-preview-kicker {
     position: absolute;
     top: -38px;
@@ -964,16 +1007,52 @@ header.scrolled {
 
 /* ===== FEATURED VIDEOS (teasers) ===== */
 .teaser-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
     max-width: 1100px;
     margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+/* Small tablet: 2 per row, lone card on a wrapped row centers */
+@media (min-width: 600px) and (max-width: 767px) {
     .teaser-grid {
-        grid-template-columns: repeat(3, 1fr);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .teaser-card {
+        flex: 1 1 calc(50% - 0.75rem);
+        max-width: 320px;
+    }
+}
+
+/* Tablet: 2 per row, lone card on a wrapped row centers */
+@media (min-width: 768px) and (max-width: 899px) {
+    .teaser-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .teaser-card {
+        flex: 1 1 calc(50% - 0.75rem);
+        max-width: 340px;
+    }
+}
+
+/* Desktop: 3 per row, lone card on a wrapped row centers */
+@media (min-width: 900px) {
+    .teaser-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .teaser-card {
+        flex: 1 1 calc(33.333% - 1rem);
+        max-width: 360px;
     }
 }
 
@@ -981,6 +1060,7 @@ header.scrolled {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    width: 100%;
     background: var(--color-surface);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-lg);
@@ -1014,25 +1094,53 @@ header.scrolled {
 
 .teaser-badge {
     position: absolute;
-    top: -14px;
-    right: 14px;
+    top: -12px;
+    right: 12px;
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.4rem 0.85rem;
-    font-size: 0.82rem;
+    gap: 0.3rem;
+    padding: 0.32rem 0.7rem;
+    font-size: clamp(0.62rem, 1.6vw, 0.8rem);
     font-weight: 700;
     color: #0f172a;
     background: var(--color-primary);
-    box-shadow: 0 2px 10px rgba(251, 146, 60, 0.35);
+    box-shadow: 0 2px 8px rgba(251, 146, 60, 0.35);
     border-radius: 999px;
     z-index: 2;
 }
 
+/* Small tablet: cards are capped at 320px, badge shrinks to match */
+@media (min-width: 600px) and (max-width: 767px) {
+    .teaser-badge {
+        font-size: 0.7rem;
+        padding: 0.28rem 0.6rem;
+        gap: 0.26rem;
+    }
+}
+
+/* Tablet: cards are capped at 340px */
+@media (min-width: 768px) and (max-width: 899px) {
+    .teaser-badge {
+        font-size: 0.74rem;
+        padding: 0.3rem 0.68rem;
+        gap: 0.28rem;
+    }
+}
+
+/* Desktop/laptop: cards are capped at 360px, badge scales up to match */
+@media (min-width: 900px) {
+    .teaser-badge {
+        font-size: 0.82rem;
+        padding: 0.34rem 0.74rem;
+        gap: 0.32rem;
+    }
+}
+
 @media (max-width: 480px) {
     .teaser-badge {
-        font-size: 0.72rem;
-        padding: 0.3rem 0.65rem;
+        font-size: 0.62rem;
+        padding: 0.25rem 0.5rem;
+        gap: 0.22rem;
     }
 }
 
@@ -1095,6 +1203,8 @@ header.scrolled {
     flex-direction: column;
     gap: 0.75rem;
     text-align: left;
+    max-width: 720px;
+    margin: 0 auto;
 }
 
 .faq-item {
@@ -1701,13 +1811,25 @@ footer {
     }
 }
 
-/* ===== RESPONSIVE: Tablet (768px - 899px) ===== */
-@media (min-width: 768px) and (max-width: 899px) {
+/* ===== RESPONSIVE: Tablet (768px - 1023px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
     header {
         padding: 0.75rem 2rem;
     }
 
+    /* Hamburger stays visible on tablet — the sidebar is the primary nav here */
     #hamburger-icon {
+        display: flex;
+    }
+
+    /* Hide CTA buttons on tablet — sidebar is the primary nav */
+    #nav-signin,
+    #nav-signup {
+        display: none;
+    }
+
+    /* Hide nav icons on tablet — sidebar is the primary nav */
+    #main-nav .nav-icon {
         display: none;
     }
 
@@ -1759,106 +1881,164 @@ footer {
         width: 350px;
     }
 
+    /* Tablet: brand centered on top, footer columns as one row below.
+       Tightened vertical spacing so it doesn't look empty. */
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 3rem 1.5rem 2.25rem;
+    }
+
+    .footer-brand {
+        align-items: center;
+        text-align: center;
+        gap: 0.65rem;
+    }
+
+    .footer-logo-badge {
+        margin: 0;
+    }
+
+    .footer-columns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 1.5rem;
+        width: 100%;
+    }
+
+    .footer-col {
+        flex: 1 1 0;
+        text-align: center;
+    }
+
+    .footer-col h4 {
+        margin-bottom: 0.55rem;
+    }
+
+    .footer-col a {
+        padding: 0.25rem 0;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1.15rem 1.5rem;
+    }
+}
+
+/* ===== RESPONSIVE: Desktop (1024px - 1249px) ===== */
+@media (min-width: 1024px) and (max-width: 1249px) {
+    /* Horizontal nav has enough room here — hamburger hidden, sidebar secondary */
+    #hamburger-icon {
+        display: none;
+    }
+
+    /* Show Sign In / Sign Up CTA buttons so the nav bar
+       mirrors the sidebar's bottom CTA block. */
+    #nav-signin,
+    #nav-signup {
+        display: inline-flex;
+    }
+
+    /* Hide nav icons on optimized horizontal bar — saves width */
+    #main-nav .nav-icon {
+        display: none;
+    }
+
+    /* Tighten links on optimized horizontal bar */
+    .nav-link {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.82rem;
+        gap: 0;
+    }
+
+    /* Tighten nav gap on optimized horizontal bar */
+    #main-nav ul {
+        gap: 0.15rem;
+    }
+
+    #hero {
+        padding: 4rem 2rem;
+        gap: 4rem;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+    .hero-tagline .tl-line {
+        font-size: clamp(3rem, 6.5vw, 4rem);
+    }
+    .hero-tagline .tl-line:last-child {
+        font-size: clamp(2.4rem, 5.2vw, 3.2rem);
+    }
+    .hero-stats {
+        gap: 1rem;
+    }
+    .stat-card {
+        padding: 0.85rem 1.4rem;
+    }
+    .stat-card strong {
+        font-size: 1.2rem;
+    }
+    .stat-card span {
+        font-size: 0.78rem;
+    }
+    .stat-card i {
+        font-size: 1.05rem;
+        width: 28px;
+    }
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    #video-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .video-bar {
+        padding: 0.65rem 1.3rem;
+        width: auto;
+        border-radius: var(--radius-xl);
+    }
+    .video-card {
+        width: 380px;
+    }
+    /* Desktop footer: brand on the left, 3 columns on the right in a row */
     .footer-content {
         flex-direction: row;
         align-items: flex-start;
         justify-content: space-between;
         gap: 3rem;
     }
-
     .footer-brand {
         align-items: flex-start;
         text-align: left;
     }
-
     .footer-logo-badge {
         margin: 0 0 0.75rem;
     }
-
     .footer-columns {
         grid-template-columns: repeat(3, 1fr);
         text-align: left;
         gap: 2.5rem;
     }
-
     .footer-col {
         text-align: left;
     }
-
     .footer-bottom {
         flex-direction: row;
         justify-content: space-between;
     }
-}
-
-/* ===== RESPONSIVE: Desktop (900px - 1023px) ===== */
-@media (min-width: 900px) {
-    #hero {
-        padding: 4rem 2rem;
-        gap: 4rem;
-    }
-
-    .hero-content {
-        max-width: 100%;
-    }
-
-    .hero-tagline .tl-line {
-        font-size: clamp(3rem, 6.5vw, 4rem);
-    }
-
-    .hero-tagline .tl-line:last-child {
-        font-size: clamp(2.4rem, 5.2vw, 3.2rem);
-    }
-
-    .hero-stats {
-        gap: 1rem;
-    }
-
-    .stat-card {
-        padding: 0.85rem 1.4rem;
-    }
-
-    .stat-card strong {
-        font-size: 1.2rem;
-    }
-
-    .stat-card span {
-        font-size: 0.78rem;
-    }
-
-    .stat-card i {
-        font-size: 1.05rem;
-        width: 28px;
-    }
-
-    .why-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-
-    #video-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .video-bar {
-        padding: 0.65rem 1.3rem;
-        width: auto;
-        border-radius: var(--radius-xl);
-    }
-
-    .video-card {
-        width: 380px;
-    }
-
     #search-container {
         max-width: 400px;
     }
 }
 
-/* ===== RESPONSIVE: Large Desktop (1024px+) ===== */
-@media (min-width: 1024px) {
+/* ===== RESPONSIVE: Large Desktop (1250px+) ===== */
+@media (min-width: 1250px) {
     header {
         padding: 0.75rem 3rem;
     }
@@ -1866,6 +2046,23 @@ footer {
     /* Hide the hamburger on desktop — links are always visible */
     #hamburger-icon {
         display: none;
+    }
+
+    /* More room to breathe — icons back, links and CTAs more spacious */
+    #main-nav .nav-icon {
+        display: inline-block;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.9rem;
+        gap: 0.5rem;
+    }
+
+    /* Show Sign In / Sign Up CTA buttons at full desktop too */
+    #nav-signin,
+    #nav-signup {
+        display: inline-flex;
     }
 
     #hero {

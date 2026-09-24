@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logout");
 
   if (logInButton) logInButton.classList.add("show");
+  // Nav CTA buttons are controlled by CSS (hidden on mobile/tablet, shown at 900px+)
   if (profile) profile.classList.remove("show");
 
   function popUp() {
@@ -54,11 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
           sidebarSmall.textContent = "@" + result.username;
         }
         logInButton.classList.remove("show");
+        // Nav CTA buttons hidden when logged in (CSS controls mobile/tablet visibility)
         profile.classList.add("show");
 
         if (!result.termsAccepted) {
           popUp()
         };
+      } else {
+        // Not logged in — CSS controls nav CTA visibility (mobile/tablet hidden, desktop shown)
+        if (logInButton) logInButton.classList.add("show");
+        if (profile) profile.classList.remove("show");
       }
     } catch (err) {
       console.log("Something went wrong :(", err);

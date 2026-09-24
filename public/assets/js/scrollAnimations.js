@@ -94,10 +94,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 sidebarItems.forEach((item) => {
                     item.classList.toggle("active", item.getAttribute("data-route") === route);
                 });
+                // Mirror the active state onto the matching nav-link in the header bar
+                const navLink = document.querySelector(
+                    `.nav-link[data-route="${route}"]`
+                );
+                document.querySelectorAll(".nav-link").forEach((nl) => {
+                    nl.classList.toggle("active", nl === navLink);
+                });
             }
         } else {
             // Scrolled past all tracked sections — clear active state
             sidebarItems.forEach((item) => item.classList.remove("active"));
+            document.querySelectorAll(".nav-link").forEach((nl) => nl.classList.remove("active"));
         }
     }
 

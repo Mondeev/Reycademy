@@ -70,10 +70,38 @@ sidebarMenuItems.forEach((item) => {
     item.addEventListener("click", () => {
         sidebarMenuItems.forEach((mi) => mi.classList.remove("active"));
         item.classList.add("active");
+        // Mirror the active state onto the matching nav-link in the header bar
+        const route = item.getAttribute("data-route");
+        if (route) {
+            const navLink = document.querySelector(
+                `.nav-link[data-route="${route}"]`
+            );
+            document.querySelectorAll(".nav-link").forEach((nl) => {
+                nl.classList.toggle("active", nl === navLink);
+            });
+        }
         // Auto-close sidebar after clicking an internal hash link
         const href = item.getAttribute("href") || "";
         if (href.startsWith("#")) {
             closeSidebar();
+        }
+    });
+});
+
+// ===== Active nav-link switching (header bar) =====
+// Clicking a nav-link moves the `active` class to that link only,
+// and mirrors the state onto the matching sidebar menu-item
+const navLinks = document.querySelectorAll(".nav-link[data-route]");
+navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+        navLinks.forEach((nl) => nl.classList.remove("active"));
+        link.classList.add("active");
+        // Mirror the active state onto the matching sidebar menu-item
+        const route = link.getAttribute("data-route");
+        if (route) {
+            sidebarMenuItems.forEach((mi) => {
+                mi.classList.toggle("active", mi.getAttribute("data-route") === route);
+            });
         }
     });
 });

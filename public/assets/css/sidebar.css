@@ -11,7 +11,7 @@
     z-index: 1100;
     display: flex;
     flex-direction: column;
-    padding: calc(1.5rem + env(safe-area-inset-top)) 1.5rem calc(1.25rem + env(safe-area-inset-bottom));
+    padding: calc(1.5rem + env(safe-area-inset-top)) 1.5rem calc(0.5rem + env(safe-area-inset-bottom));
     background: linear-gradient(180deg, rgba(10, 18, 32, 0.98), rgba(8, 14, 28, 0.98));
     backdrop-filter: blur(28px) saturate(160%);
     -webkit-backdrop-filter: blur(28px) saturate(160%);
@@ -181,7 +181,7 @@
 #sidebar-bottom {
     flex-shrink: 0;
     padding-top: 1rem;
-    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
@@ -254,10 +254,18 @@
         right: -280px;
         width: 260px;
         height: 100dvh;
-        padding: calc(1.25rem + env(safe-area-inset-top)) 1.25rem calc(1rem + env(safe-area-inset-bottom));
+        padding: calc(1.25rem + env(safe-area-inset-top)) 1.25rem calc(0.5rem + env(safe-area-inset-bottom));
     }
 
     #sidebar.show {
         right: 0;
+    }
+}
+
+/* ===== Tablet: intermediate width so mobile→tablet→desktop is gradual ===== */
+@media (min-width: 768px) and (max-width: 899px) {
+    #sidebar {
+        right: -300px;
+        width: 290px;
     }
 }

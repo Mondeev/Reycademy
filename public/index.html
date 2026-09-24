@@ -28,12 +28,13 @@
 
          <nav id="main-nav">
              <ul>
-                 <li><a href="#hero" class="nav-link active"><i class="fas fa-home nav-icon" aria-hidden="true"></i><span>Home</span></a></li>
-                 <li><a href="about.html" target="_blank" class="nav-link"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span>About</span></a></li>
-                 <li><a href="#videos" class="nav-link"><i class="fas fa-video nav-icon" aria-hidden="true"></i><span>Videos</span></a></li>
-                 <li><a href="#paths" class="nav-link"><i class="fas fa-route nav-icon" aria-hidden="true"></i><span>Paths</span></a></li>
-                 <li><a href="#paths" class="nav-link"><i class="fas fa-flag-checkered nav-icon" aria-hidden="true"></i><span>Challenges</span></a></li>
-                 <li><a href="#faq" class="nav-link"><i class="fas fa-circle-question nav-icon" aria-hidden="true"></i><span>FAQ</span></a></li>
+                 <li><a href="#hero" class="nav-link active" data-route="home"><i class="fas fa-home nav-icon" aria-hidden="true"></i><span>Home</span></a></li>
+                  <li><a href="about.html" target="_blank" class="nav-link" data-route="why"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span>About</span></a></li>
+                  <li><a href="#why-features" class="nav-link" data-route="features"><i class="fas fa-cogs nav-icon" aria-hidden="true"></i><span>Features</span></a></li>
+                  <li><a href="#videos" class="nav-link" data-route="videos"><i class="fas fa-video nav-icon" aria-hidden="true"></i><span>Videos</span></a></li>
+                  <li><a href="#faq" class="nav-link" data-route="faq"><i class="fas fa-circle-question nav-icon" aria-hidden="true"></i><span>FAQ</span></a></li>
+                  <li><a href="#paths" class="nav-link" data-route="paths"><i class="fas fa-route nav-icon" aria-hidden="true"></i><span>Paths</span></a></li>
+                  <li><a href="#paths" class="nav-link" data-route="challenges"><i class="fas fa-flag-checkered nav-icon" aria-hidden="true"></i><span>Challenges</span></a></li>
              </ul>
          </nav>
 
@@ -41,6 +42,8 @@
              <div id="profile-container">
                  <img src="assets/images/reycademy.png" id="profile" alt="Reycademy Logo">
              </div>
+             <a href="/login" id="nav-signin" class="nav-cta secondary"><i class="fas fa-user"></i> Sign In</a>
+             <a href="#videos" id="nav-signup" class="nav-cta primary"><i class="fas fa-user-plus"></i> Sign Up</a>
              <button id="hamburger-icon" aria-label="Toggle navigation" aria-expanded="false">
                   <span class="hamburger-line"></span>
                   <span class="hamburger-line"></span>
@@ -152,12 +155,11 @@
              </div>
 
              <div class="video-preview animate-on-scroll">
-                 <div class="video-preview-inner">
-                     <div class="video-preview-kicker"><i class="fas fa-play-circle"></i> Quick Walkthrough</div>
-                     <iframe src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=nGKYIrUZzDdq1R6C" title="YouTube video player" allowfullscreen></iframe>
-                     <div class="video-play-badge"><i class="fas fa-play"></i></div>
-                 </div>
-             </div>
+                  <div class="video-preview-inner">
+                      <div class="video-preview-kicker"><i class="fas fa-play-circle"></i> Quick Walkthrough</div>
+                      <iframe src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=nGKYIrUZzDdq1R6C" title="YouTube video player" allowfullscreen></iframe>
+                  </div>
+              </div>
          </section>
 
          <!-- ===== WHY FEATURES ===== -->
