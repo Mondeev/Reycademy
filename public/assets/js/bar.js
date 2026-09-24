@@ -62,3 +62,18 @@ document.addEventListener("keydown", (e) => {
         closeSidebar();
     }
 });
+
+// ===== Active menu item switching =====
+// Clicking a menu item moves the `active` class to that item only
+const sidebarMenuItems = document.querySelectorAll(".sidebar-nav .menu-item");
+sidebarMenuItems.forEach((item) => {
+    item.addEventListener("click", () => {
+        sidebarMenuItems.forEach((mi) => mi.classList.remove("active"));
+        item.classList.add("active");
+        // Auto-close sidebar after clicking an internal hash link
+        const href = item.getAttribute("href") || "";
+        if (href.startsWith("#")) {
+            closeSidebar();
+        }
+    });
+});

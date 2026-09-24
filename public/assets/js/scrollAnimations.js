@@ -50,4 +50,56 @@ document.addEventListener("DOMContentLoaded", () => {
             header.classList.remove("scrolled");
         }
     });
+
+    // ===== Scroll spy: auto-switch active sidebar menu item =====
+    // Maps data-route values to the section IDs they point to
+    const routeToSection = {
+        home: "hero",
+        about: null,         // external page (about.html)
+        why: "video-introduction",
+        features: "why-features",
+        videos: "videos",
+        paths: null,         // placeholder, no section yet
+        challenges: null,    // placeholder, no section yet
+        faq: "faq",
+    };
+
+    const sidebarItems = document.querySelectorAll(".sidebar-nav .menu-item");
+    const sections = Array.from(sidebarItems)
+        .map((item) => {
+            const route = item.getAttribute("data-route");
+            const sectionId = routeToSection[route];
+            return sectionId ? document.getElementById(sectionId) : null;
+        })
+        .filter(Boolean);
+
+    function updateActiveByScroll() {
+        const scrollY = window.scrollY + window.innerHeight / 3;
+        let current = null;
+
+        for (const section of sections) {
+            if (section.offsetTop <= scrollY) {
+                current = section;
+            } else {
+                break;
+            }
+        }
+
+        if (current) {
+            const targetId = current.id;
+            const route = Object.keys(routeToSection).find(
+                (key) => routeToSection[key] === targetId
+            );
+            if (route) {
+                sidebarItems.forEach((item) => {
+                    item.classList.toggle("active", item.getAttribute("data-route") === route);
+                });
+            }
+        } else {
+            // Scrolled past all tracked sections — clear active state
+            sidebarItems.forEach((item) => item.classList.remove("active"));
+        }
+    }
+
+    window.addEventListener("scroll", updateActiveByScroll, { passive: true });
 });
