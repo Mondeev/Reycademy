@@ -16,7 +16,7 @@ https://reycademy.netlify.app
 
 ## Screenshot
 
-<img width="1263" height="517" alt="Reycademy" src="https://github.com/user-attachments/assets/58f14e65-4ce1-4d3a-b077-0bda502a1baf" />
+<img width="1351" height="630" alt="Screenshot (103)" src="https://github.com/user-attachments/assets/406b1cd7-866f-4f23-a8ad-3d5f7f547325" />
 
 ---
 
