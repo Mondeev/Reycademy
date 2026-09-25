@@ -16,7 +16,7 @@
 
      <!-- ===== HEADER (modern SaaS nav bar) ===== -->
      <header>
-         <div id="brand">
+         <a href="#hero" id="brand" class="brand-link">
              <div id="brand-group">
                  <div id="brand-logo" aria-hidden="true">R</div>
                  <div id="brand-text">
@@ -24,12 +24,12 @@
                      <span id="brand-tagline">Free IT tutorials in Tagalog</span>
                  </div>
              </div>
-          </div>
+          </a>
 
          <nav id="main-nav">
              <ul>
                  <li><a href="#hero" class="nav-link active" data-route="home"><i class="fas fa-home nav-icon" aria-hidden="true"></i><span>Home</span></a></li>
-                  <li><a href="about.html" target="_blank" class="nav-link" data-route="why"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span>About</span></a></li>
+                  <li><a href="#video-introduction" class="nav-link" data-route="why"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span>About</span></a></li>
                   <li><a href="#why-features" class="nav-link" data-route="features"><i class="fas fa-cogs nav-icon" aria-hidden="true"></i><span>Features</span></a></li>
                   <li><a href="#videos" class="nav-link" data-route="videos"><i class="fas fa-video nav-icon" aria-hidden="true"></i><span>Videos</span></a></li>
                   <li><a href="#faq" class="nav-link" data-route="faq"><i class="fas fa-circle-question nav-icon" aria-hidden="true"></i><span>FAQ</span></a></li>
@@ -110,16 +110,13 @@
                  <span class="particle p8"></span>
              </div>
              <div class="hero-content">
-                 <div id="hero-kicker" class="animate-on-scroll">
-                     <span class="kicker-pill"><i class="fas fa-eye"></i> 2,500+ Visitors</span>
-                 </div>
 
                  <div id="hero-brand">
                      <h1 class="hero-tagline animate-on-scroll">
-                         <span class="tl-line">We Teach You</span>
-                         <span class="tl-line">The tagalog way</span>
+                         <span class="tl-line">I Teach IT.</span>
+                         <span class="tl-line">The tagalog way.</span>
                      </h1>
-                     <p class="hero-explain animate-on-scroll">Free lessons in Tagalog — from IT basics to real-world tech skills. Learn at your own pace, no experience needed.</p>
+                     <p class="hero-explain animate-on-scroll">Learn IT for free through structured Tagalog lessons, guided learning paths, challenges, and hands-on training.</p>
                  </div>
 
                  <div class="cta animate-on-scroll">
@@ -130,17 +127,17 @@
                  <div class="hero-stats animate-on-scroll">
                      <div class="stat-card">
                          <i class="fas fa-users"></i>
-                         <strong>2,500+</strong>
+                         <strong>0</strong>
                          <span>Learners</span>
                      </div>
                      <div class="stat-card">
                          <i class="fas fa-book"></i>
-                         <strong>40+</strong>
+                         <strong>0</strong>
                          <span>Lessons</span>
                      </div>
                      <div class="stat-card">
                          <i class="fas fa-route"></i>
-                         <strong>5</strong>
+                         <strong>0</strong>
                          <span>Learning paths</span>
                      </div>
                  </div>
@@ -151,48 +148,62 @@
          <section id="video-introduction">
              <div class="why-header animate-on-scroll">
                  <h2><span class="why-word">Why</span> <span class="why-brand">Reycademy?</span></h2>
-                 <p>Reycademy makes IT simple and accessible for everyone. Get step-by-step guidance, hands-on labs, and free resources — all in Tagalog — so you can learn the skills you need, comfortably in your own language.</p>
+                 <p class="why-intro">Reycademy was built to make IT easier to understand and less intimidating — a simple place to learn, practice, and grow for free.</p>
+                 <div class="why-grid-list">
+                      <div class="why-check-card"><i class="fas fa-check-circle check-icon"></i>Clear, structured lessons explained in Tagalog</div>
+                      <div class="why-check-card"><i class="fas fa-check-circle check-icon"></i>Guided learning paths you can follow step by step</div>
+                      <div class="why-check-card"><i class="fas fa-check-circle check-icon"></i>Hands-on practice and real activities to build confidence</div>
+                      <div class="why-check-card"><i class="fas fa-check-circle check-icon"></i>Sharpen your skills whether you're just starting out or leveling up</div>
+                  </div>
              </div>
 
              <div class="video-preview animate-on-scroll">
-                  <div class="video-preview-inner">
-                      <div class="video-preview-kicker"><i class="fas fa-play-circle"></i> Quick Walkthrough</div>
-                      <iframe src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=nGKYIrUZzDdq1R6C" title="YouTube video player" allowfullscreen></iframe>
-                  </div>
-              </div>
+                    <h3 class="video-preview-heading"><span class="vpw-word">Quick</span> <span class="vpw-brand">Walkthrough</span></h3>
+                    <div class="video-preview-inner">
+                        <iframe src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=nGKYIrUZzDdq1R6C" title="YouTube video player" allowfullscreen></iframe>
+                    </div>
+                </div>
          </section>
 
          <!-- ===== WHY FEATURES ===== -->
          <section id="why-features">
              <div class="why-grid-heading animate-on-scroll"><i class="fas fa-sparkles"></i><span class="gh-word"> 4 reasons to</span><span class="gh-brand"> start today</span></div>
-             <p class="why-features-sub animate-on-scroll">Four things that make Reycademy the right place to start your IT journey — simple, hands-on, and 100% free.</p>
+             <p class="why-features-sub animate-on-scroll">Four things that make Reycademy the right place to start your IT journey.</p>
 
              <div class="why-grid">
-                 <div class="why-card animate-on-scroll">
-                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
-                     <div class="why-icon"><i class="fas fa-language"></i></div>
-                     <h3>Learn in Tagalog</h3>
-                     <p>IT lessons explained in plain Tagalog — no confusing jargon, just concepts you can actually use.</p>
-                 </div>
-                 <div class="why-card animate-on-scroll">
-                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
-                     <div class="why-icon"><i class="fas fa-route"></i></div>
-                     <h3>Guided Paths</h3>
-                     <p>Structured learning tracks that take you from zero basics to real-world projects, step by step.</p>
-                 </div>
-                 <div class="why-card animate-on-scroll">
-                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
-                     <div class="why-icon"><i class="fas fa-laptop-code"></i></div>
-                     <h3>Real IT Skills</h3>
-                     <p>Hands-on labs and practical exercises so you can actually apply what you learn, not just read about it.</p>
-                 </div>
-                 <div class="why-card animate-on-scroll">
-                     <div class="why-img-placeholder"><i class="fas fa-image"></i> Image</div>
-                     <div class="why-icon"><i class="fas fa-coins"></i></div>
-                     <h3>100% Free</h3>
-                     <p>No paid courses, no hidden fees. All IT content is completely free for anyone who wants to learn.</p>
-                 </div>
-             </div>
+                  <div class="why-card animate-on-scroll">
+                      <div class="why-img-frame">
+                          <div class="why-img-placeholder"><i class="fas fa-image"></i></div>
+                          <div class="why-icon-badge">1</div>
+                      </div>
+                      <h3>Learn in Tagalog</h3>
+                      <p>IT lessons explained in plain Tagalog — no confusing jargon, just concepts you can actually use.</p>
+                  </div>
+                  <div class="why-card animate-on-scroll">
+                      <div class="why-img-frame">
+                          <div class="why-img-placeholder"><i class="fas fa-image"></i></div>
+                          <div class="why-icon-badge">2</div>
+                      </div>
+                      <h3>Guided Paths</h3>
+                      <p>Structured learning tracks that take you from zero basics to real-world projects, step by step.</p>
+                  </div>
+                  <div class="why-card animate-on-scroll">
+                      <div class="why-img-frame">
+                          <div class="why-img-placeholder"><i class="fas fa-image"></i></div>
+                          <div class="why-icon-badge">3</div>
+                      </div>
+                      <h3>Real IT Skills</h3>
+                      <p>Hands-on labs and practical exercises so you can actually apply what you learn, not just read about it.</p>
+                  </div>
+                  <div class="why-card animate-on-scroll">
+                      <div class="why-img-frame">
+                          <div class="why-img-placeholder"><i class="fas fa-image"></i></div>
+                          <div class="why-icon-badge">4</div>
+                      </div>
+                      <h3>100% Free</h3>
+                      <p>No paid courses, no hidden fees. All IT content is completely free for anyone who wants to learn.</p>
+                  </div>
+              </div>
          </section>
 
          <!-- ===== FEATURED VIDEOS (teasers) ===== -->

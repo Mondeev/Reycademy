@@ -1,8 +1,8 @@
 # Reycademy
 
-**Free cybersecurity learning in Filipino.**
+**Free IT learning in Filipino.**
 
-Reycademy is a cybersecurity learning website built for Filipinos who want to learn security concepts in a simpler and more familiar language. The project focuses on making cybersecurity more approachable through Filipino/Tagalog content and beginner-friendly explanations.
+Reycademy is an IT learning website built for Filipinos who want to learn technology concepts in a simpler and more familiar language. The project focuses on making IT approachable through Filipino/Tagalog content and beginner-friendly explanations.
 
 Welcome to version 0.4.0 of Reycademy!
 
@@ -22,7 +22,7 @@ https://reycademy.netlify.app
 
 ## Features
 
-* Filipino/Tagalog cybersecurity lessons
+* Filipino/Tagalog IT lessons
 * User registration and login
 * Learning-focused content structure
 * Security-focused backend
