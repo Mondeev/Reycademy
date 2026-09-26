@@ -1029,6 +1029,8 @@ header.scrolled {
     .why-check-card {
         scroll-snap-align: none;
         flex-shrink: 1;
+        width: 100%;    
+        margin-bottom: 0;
     }
 }
 
