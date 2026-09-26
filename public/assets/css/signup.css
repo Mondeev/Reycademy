@@ -1,162 +1,319 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ============================================
+   REYACADEMY — SIGNUP ADJUSTMENTS
+   The signup page reuses login.css so Login and
+   Signup share one visual system. This file only
+   handles the extra signup fields: form density,
+   the terms row, and the desktop scroll model.
+   ============================================ */
+
+/* ===== Form density =====
+   Signup has five fields, so the vertical rhythm is
+   slightly tighter than login. Inputs, labels, radii,
+   icons, focus and error states all come from
+   login.css and are left untouched. */
+.auth-form {
+    gap: 0.9rem;
+    align-items: stretch;
 }
 
-html, body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    height: 100%;
+.form-group {
+    gap: 0.35rem;
 }
 
-body {
-    min-height: 100%;   
+/* Keep the whole left composition reading as one
+   consistently centred, left-aligned column. */
+.auth-content {
+    text-align: left;
+}
+
+/* ===== Terms & Privacy row =====
+   The checkbox and its text form a single group that is
+   centred beneath the form. The group sizes to its content
+   rather than stretching to the full column width, while
+   still wrapping safely on narrow screens. */
+.signup-terms {
     display: flex;
+    align-items: flex-start;
+    align-self: center;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-image: url("../images/heroBackground.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    user-select: none;  
-}
-
-.auth-card{
-    background-color: none;
-    width: 90%;
-    max-width: 420px;
-    border-radius: 10px;
-    padding: 1rem;
-    border: 2px solid #ccc;
-}
-
-.brand{
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 18px;
-}
-
-#login-heading {
-    font-weight: lighter;
-    color: rgb(84, 207, 255); 
-}
-
-#login-paragraph {
-    color: #ccc;
-}
-
-.field{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-label{
-    margin-top: 0.700rem;
-
-    font-size: 13px;
-    color: #ccc;
-}
-
-input {
-    margin: 3px 0;
-}
-
-input[type="text"], input[type="password"]{
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 10px;
-    background: white;
-    border: 1px solid black;
-    font-size: 15px;
-    outline: none;
-}
-
-input::placeholder{
-    color: rgb(124, 122, 122);
-}
-
-#error {
-    text-align: center;
-    color: #ccc;
-    margin: 5px;
-}
-
-#agree {
-    gap: 5px;
-    margin: 10px 0;
-    display: flex;
-    justify-content: center;
-}
-
-#agree a {
-    color: white;
-}
-
-#agree a:hover {
-    color: skyblue;
-}
-
-#login-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     max-width: 100%;
+    gap: 0.6rem;
+    margin: 0.50rem 0 0 0;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    text-align: left;
+    color: var(--color-text-dim);
 }
 
-#login-buttons .in-btn {
-    background-color: yellow;
-    min-width: 12.5rem;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
+.signup-terms .checkbox-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.signup-terms .checkbox-custom {
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+}
+
+.signup-terms .checkbox-label {
+    flex: 0 1 auto;
+    min-width: 0;
+    text-align: left;
+}
+
+.signup-terms a {
+    color: var(--color-primary);
     font-weight: 600;
-    font-size: 15px;
+    transition: color var(--transition-fast);
 }
 
-#login-buttons .in-btn:hover{
-    background: rgb(235, 201, 50);
-
+.signup-terms a:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
 }
 
-#login-redirect {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-    
-    color: #ccc;
-}
-
-#login-redirect a {
-    color: white;
-}
-
-#login-redirect a:hover {
-    color: skyblue;
-}
-
-@media (max-width: 301px) {
-  body::before {
-    content: "You can't view Reycademy at 301px or less. Enjoy the void :)";
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    height: 100vh;
-
-    font-size: 24px;
-    text-align: center;
-    color: white;
-
-    background: black;
-  }
-
-  body > * {
+/* ===== Server error message =====
+   Same alert treatment as the login message box.
+   Hidden until the API returns a message, so it adds
+   no stray gap to the form. */
+#error {
     display: none;
-  }
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--color-error);
+    background: rgba(248, 113, 113, 0.15);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+#error:not(:empty) {
+    display: block;
+    animation: fadeIn 0.3s var(--transition-base);
+}
+
+/* ============================================
+   DESKTOP SCROLL MODEL (1024px and up)
+
+   The split screen is exactly one viewport tall, so
+   the document itself never scrolls:
+     • LEFT  — the auth panel is the only scrollable
+               region, so a signup form taller than the
+               viewport stays completely reachable
+     • RIGHT — the community panel stays locked in
+               place, vertically centred, no scrollbar
+   ============================================ */
+
+@media (min-width: 1024px) {
+    /* Page is pinned to the viewport: no page-level
+       scroll in either direction. */
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    /* Exact viewport height (rather than 100dvh) so the
+       split can never exceed the pinned body. */
+    .auth-split {
+        height: 100%;
+    }
+
+    /* LEFT: the single scrollable region. Thin scrollbar
+       with a muted orange thumb on a fully transparent
+       track, so it blends into the panel background
+       instead of showing a bright white strip. Colours
+       reuse the existing accent variables. */
+    .auth-section {
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-primary-dark) transparent;
+
+        /* This container scrolls, so it must never centre a
+           column that is taller than itself — that pushes
+           content above the scroll origin where it cannot be
+           reached. flex-start is the always-safe baseline;
+           "safe center" then centres only while the form
+           actually fits and falls back to the top otherwise.
+           Browsers without "safe" keep the flex-start
+           declaration above and simply stay top-aligned. */
+        justify-content: flex-start;
+        justify-content: safe center;
+    }
+
+    .auth-section::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .auth-section::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .auth-section::-webkit-scrollbar-thumb {
+        background-color: var(--color-primary-dark);
+        border-radius: 8px;
+    }
+
+    .auth-section::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-primary);
+    }
+
+    /* Horizontal centring only — no auto block margins, so
+       the column can never be pushed above the top of the
+       scroll area. */
+    .auth-content {
+        margin: 0 auto;
+    }
+
+    /* Two-column field rows (First/Last, Password/Confirm).
+       minmax(0, 1fr) keeps a long placeholder from forcing the
+       tracks wider than the column. */
+    .form-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0.9rem;
+    }
+
+    /* Reserve room for the visibility toggle so a full value
+       never runs underneath it in the narrower password
+       inputs. */
+    .form-group--password .form-input {
+        padding-right: 2.75rem;
+    }
+
+    /* Vertical rhythm: compact, but never cramped. Values step
+       up in a consistent scale from the label/input pair to the
+       major section breaks. */
+    .auth-branding {
+        margin-bottom: 1.25rem;
+    }
+
+    .auth-title {
+        margin-bottom: 0.75rem;
+    }
+
+    .auth-subtitle {
+        margin-bottom: 2rem;
+    }
+
+    /* One value drives every gap between form rows, so the
+       First/Last pair, the Username field, and the
+       Password/Confirm pair all sit on the same rhythm. */
+    .auth-form {
+        gap: 1.1rem;
+    }
+
+    /* A little extra lift before the primary action, then a
+       clearly separated sign-in line beneath it. */
+    .auth-submit {
+        margin-top: 0.75rem;
+    }
+
+    .auth-footer-text {
+        margin-top: 1.75rem;
+        padding-top: 1.25rem;
+    }
+
+    /* RIGHT: fixed, vertically centred, never scrolls. */
+    .brand-section {
+        min-height: 0;
+        overflow: hidden;
+    }
+}
+
+/* Short desktop viewports: tighten the rhythm so less
+   scrolling is needed, without changing the design. */
+@media (min-width: 1024px) and (max-height: 900px) {
+    .auth-section {
+        padding: 1.5rem 2.5rem;
+    }
+
+    .auth-branding {
+        margin-bottom: 0.6rem;
+    }
+
+    .auth-subtitle {
+        margin-bottom: 1.5rem;
+    }
+
+    .auth-form {
+        gap: 0.7rem;
+    }
+
+    .signup-terms {
+        margin-top: 0.5rem;
+    }
+
+    .auth-footer-text {
+        margin-top: 1.5rem;
+        padding-top: 1.1rem;
+    }
+}
+
+/* ===== Mobile: normal single-column page scrolling =====
+   Below 1024px the panel is hidden and the form is
+   naturally taller than a phone screen, so the page
+   scrolls as usual and the document is unpinned. */
+@media (max-width: 1023px) {
+    html,
+    body {
+        height: auto;
+        overflow: visible;
+    }
+
+    .auth-split {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    /* One consistent vertical scale: label/input pairs sit tight,
+       field-to-field steps one step larger, major section breaks
+       largest. Input and button padding are untouched so the tap
+       targets stay comfortable. */
+    .auth-section {
+        padding: 1.75rem 1.25rem;
+        overflow: visible;
+    }
+
+    /* Off the two-column grid, each pair becomes a plain vertical
+       stack using the same gap as the rest of the form, so the
+       rhythm is identical to the standalone Username field. */
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+
+    .auth-branding {
+        margin-bottom: 1rem;
+    }
+
+    .auth-title {
+        margin-bottom: 0.4rem;
+    }
+
+    .auth-subtitle {
+        margin-bottom: 1.25rem;
+    }
+
+    .form-group {
+        gap: 0.4rem;
+    }
+
+    .signup-terms {
+        margin: 0.1rem 0 0;
+    }
+
+    .auth-footer-text {
+        margin-top: 1.5rem;
+        padding-top: 1.25rem;
+    }
 }

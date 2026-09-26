@@ -487,20 +487,42 @@ body::before {
     justify-content: center;
     align-items: center;
     padding: 4rem 3rem;
-    background: linear-gradient(145deg, #0a0e18 0%, #0b1220 100%);
+    /* Same background language as the landing hero, softened
+       slightly so the heading keeps its full contrast. */
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(251, 146, 60, 0.12), transparent 58%),
+        linear-gradient(180deg, #0b1220 0%, #0f172a 60%, #0a0f1a 100%);
     border-left: 1px solid var(--color-border-light);
     position: relative;
     overflow: hidden;
 }
 
+/* The hero's faint 44px grid, reused so the panel reads as part of
+   the same product instead of a flat second background. */
 .brand-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(ellipse 50% 50% at 20% 30%, rgba(251, 146, 60, 0.04) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 80% 70%, rgba(251, 191, 36, 0.03) 0%, transparent 50%);
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(251, 146, 60, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(251, 146, 60, 0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
     pointer-events: none;
+}
+
+/* The landing hero's particle field, reused as-is: .particle and the
+   driftUp keyframes already live in style.css. The opacity filter
+   softens the reused animation down to a background element without
+   duplicating any of its rules. */
+.brand-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    filter: opacity(0.55);
 }
 
 .brand-content {
@@ -572,22 +594,44 @@ body::before {
     color: var(--color-primary);
 }
 
-/* Alternating orange highlight animation (only when JS is enabled) */
+/* Alternating orange highlight animation (only when JS is enabled).
+   The colour is interpolated across many closely spaced stops so the
+   text dissolves between white and orange instead of switching. The
+   three lines are staggered evenly, so one line is always mid-fade. */
 .js-enabled .headline-line {
     animation: highlightCycle 3s infinite;
+    animation-timing-function: linear;
 }
 
 .js-enabled .headline-line:nth-child(1) { animation-delay: 0s; }
 .js-enabled .headline-line:nth-child(2) { animation-delay: -2s; }
 .js-enabled .headline-line:nth-child(3) { animation-delay: -1s; }
 
+/* Intermediate tones are derived from the existing accent rather than
+   being new colours: 28% and 55% mixes of --color-primary into white
+   read as a light warm orange and a muted orange respectively. */
 @keyframes highlightCycle {
-    0%   { color: var(--color-primary); }
-    25%  { color: var(--color-primary); }
-    30%  { color: var(--color-text); }
-    90%  { color: var(--color-text); }
-    95%  { color: var(--color-primary); }
-    100% { color: var(--color-primary); }
+    0%, 10% {
+        color: var(--color-primary);
+    }
+    18% {
+        color: color-mix(in srgb, var(--color-primary) 55%, white);
+    }
+    24% {
+        color: color-mix(in srgb, var(--color-primary) 28%, white);
+    }
+    30%, 70% {
+        color: var(--color-text);
+    }
+    76% {
+        color: color-mix(in srgb, var(--color-primary) 28%, white);
+    }
+    82% {
+        color: color-mix(in srgb, var(--color-primary) 55%, white);
+    }
+    90%, 100% {
+        color: var(--color-primary);
+    }
 }
 
 .brand-description {
@@ -882,6 +926,8 @@ body::before {
     .password-toggle,
     .checkbox-custom,
     .headline-line,
+    .brand-particles,
+    .brand-particles .particle,
     .js-enabled .brand-badge,
     .js-enabled .brand-headline,
     .js-enabled .brand-description,
