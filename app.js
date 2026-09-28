@@ -157,6 +157,10 @@ async function comparePassword(plainPassword, hashedPassword) {
 app.get("/login", servePage("login.html"));
 app.get("/signup", servePage("signup.html"));
 
+// For public content pages
+app.get("/paths", servePage("paths.html"));
+app.get("/challenges", servePage("challenges.html"));
+
 // For signup route
 app.post("/register", [
 

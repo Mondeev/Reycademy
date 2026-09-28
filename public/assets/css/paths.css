@@ -1,0 +1,343 @@
+/* ============================================
+   REYCADEMY — LEARNING PATHS PAGE
+   Page-specific styles only. Everything visual is
+   built from the tokens and components that already
+   live in style.css (hero background, particle
+   field, kicker pill, card language, section
+   headings) so this page matches the rest of the
+   site without a second design system.
+   ============================================ */
+
+/* ===== CHOOSE YOUR PATH =====
+   Top of the page. The intro hero was removed so this section sits
+   directly under the navbar, which means the fixed-header offset
+   that used to live on .page-hero now lives here instead. Without it
+   the first heading would slide under the navbar.
+
+   The 44px grid is the landing page's own #hero::before, reused at
+   roughly a third of its strength. It ties the page to the brand
+   without adding an illustration, and isolation:isolate keeps the
+   texture behind the content rather than letting a z-index:-1 pseudo
+   slip under the section's own background. */
+#choose-path {
+    position: relative;
+    isolation: isolate;
+    margin-top: var(--header-height);
+    padding: 3.5rem 1.25rem 4rem;
+    width: 100%;
+    background: linear-gradient(180deg, #0a0f1a 0%, #0b1220 100%);
+}
+
+#choose-path::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        linear-gradient(rgba(251, 146, 60, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(251, 146, 60, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.paths-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.paths-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+}
+
+.paths-header h1 .ph-brand {
+    color: var(--color-primary);
+}
+
+.paths-header p {
+    color: var(--color-text-muted);
+    font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* ===== PATH CARDS =====
+   Follows the .why-card language: translucent gradient surface,
+   hairline border, --radius-lg. Two things distinguish these from
+   the challenge cards: each path owns an accent colour, and each
+   card draws its stages as a rail.
+
+   The accents are muted on purpose. They sit on the same dark navy
+   surface as everything else and none of them out-shout the orange
+   the site is actually branded with — orange is kept for Web
+   Development, the flagship, so the primary accent still means
+   something. */
+.paths-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.path-card[data-accent="orange"] { --path-accent: #fb923c; }
+.path-card[data-accent="rose"]   { --path-accent: #f87171; }
+.path-card[data-accent="teal"]   { --path-accent: #2dd4bf; }
+.path-card[data-accent="cyan"]   { --path-accent: #38bdf8; }
+.path-card[data-accent="violet"] { --path-accent: #a78bfa; }
+.path-card[data-accent="green"]  { --path-accent: #4ade80; }
+
+.path-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(20, 28, 48, 0.95), rgba(16, 22, 38, 0.95));
+    border: 1px solid var(--color-border-light);
+    border-top: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(12px);
+    transition: transform var(--transition-base),
+                border-color var(--transition-base),
+                box-shadow var(--transition-base);
+}
+
+/* Accent hairline along the top edge. Visible at rest at low
+   strength so six cards are not six identical grey rectangles when
+   the page loads, then brought to full on hover. */
+.path-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--path-accent, var(--color-primary)), transparent);
+    opacity: 0.4;
+    transition: opacity var(--transition-base);
+}
+
+.path-card:hover,
+.path-card:focus-visible {
+    transform: translateY(-6px);
+    border-color: var(--color-border);
+    border-top-color: var(--color-secondary);
+    box-shadow: var(--shadow-lg);
+    outline: none;
+}
+
+.path-card:hover::before,
+.path-card:focus-visible::before {
+    opacity: 1;
+}
+
+.path-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.path-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    color: var(--path-accent, var(--color-primary));
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.path-card:hover .path-icon,
+.path-card:focus-visible .path-icon {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--color-border);
+}
+
+.path-stages {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+}
+
+.path-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+}
+
+/* ===== STAGE RAIL =====
+   One tick per stage, sitting directly under the title so the card
+   shows the shape of the path before it shows the description.
+
+   The ticks fade left to right rather than all reading as "done".
+   That keeps it honest: this is the route ahead, not the visitor's
+   position on it. No stage is ever marked complete here, because
+   nothing on this page knows where anyone is. */
+.path-rail {
+    display: flex;
+    gap: 4px;
+    margin-top: -0.15rem;
+}
+
+.path-rail span {
+    height: 3px;
+    flex: 1;
+    border-radius: 2px;
+    background: var(--path-accent, var(--color-primary));
+}
+
+.path-rail span:nth-child(1) { opacity: 1; }
+.path-rail span:nth-child(2) { opacity: 0.75; }
+.path-rail span:nth-child(3) { opacity: 0.58; }
+.path-rail span:nth-child(4) { opacity: 0.44; }
+.path-rail span:nth-child(5) { opacity: 0.32; }
+.path-rail span:nth-child(6) { opacity: 0.22; }
+
+.path-card p {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+/* Pinned to the bottom so the action row aligns across
+   cards of different description lengths */
+.path-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--color-border-light);
+}
+
+.path-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--path-accent, var(--color-primary));
+}
+
+.path-action i {
+    font-size: 0.75rem;
+    transition: transform var(--transition-base);
+}
+
+.path-card:hover .path-action i,
+.path-card:focus-visible .path-action i {
+    transform: translateX(3px);
+}
+
+.paths-note {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-dim);
+}
+
+/* ===== RESPONSIVE =====
+   Built up from a single column, so narrow screens get
+   a deliberate layout rather than a squeezed desktop one. */
+
+/* Small phones: tighter card padding and touch-friendly
+   action row */
+@media (max-width: 480px) {
+    #choose-path {
+        padding: 3rem 1rem;
+    }
+
+    .path-card {
+        padding: 1.25rem;
+        gap: 0.6rem;
+    }
+
+    .path-card h3 {
+        font-size: 1.05rem;
+    }
+
+    /* Stack the meta and action so nothing is squeezed */
+    .path-card-foot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+}
+
+/* Tablet: two columns */
+@media (min-width: 600px) {
+    .paths-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.35rem;
+    }
+}
+
+/* Desktop: three columns, comfortable centred width */
+@media (min-width: 1024px) {
+    #choose-path {
+        padding: 5rem 2.5rem;
+    }
+
+    .paths-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
+    .path-card {
+        padding: 1.75rem;
+    }
+}
+
+/* Large desktop */
+@media (min-width: 1441px) {
+    #choose-path {
+        padding: 5.5rem 3rem;
+    }
+}
+
+/* ===== Scroll reveal (shared with the landing page) =====
+   The reveal lives in style.css, but .path-card declares its own
+   transition for the hover lift, and this stylesheet loads after
+   style.css — so at equal specificity the card rule wins and the
+   opacity part of the fade gets dropped. The card would then snap into
+   view instead of easing, and the 250ms hover timing would govern the
+   reveal. Re-declared here at higher specificity, keeping the hover
+   properties so the lift is unchanged. */
+.js-enabled .path-card.animate-on-scroll {
+    transition: opacity 0.7s var(--transition-slow),
+                transform 0.7s var(--transition-slow),
+                border-color var(--transition-base),
+                box-shadow var(--transition-base);
+}
+
+/* The lift has to be restated once the card is revealed. The landing
+   page's .visible rule outranks a plain :hover, so a revealed card
+   would stop responding to the pointer. */
+.js-enabled .path-card.animate-on-scroll.visible:hover,
+.js-enabled .path-card.animate-on-scroll.visible:focus-visible {
+    transform: translateY(-6px);
+}

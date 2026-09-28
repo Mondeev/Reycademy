@@ -104,6 +104,20 @@ img {
 .js-enabled .animate-on-scroll:nth-child(5) { transition-delay: 400ms; }
 .js-enabled .animate-on-scroll:nth-child(6) { transition-delay: 500ms; }
 
+/* Visitors who ask for less motion get the content immediately, with no
+   fade and no upward drift. Covers every page that loads this stylesheet
+   — the standalone pages (paths, challenges) have no stylesheet of their
+   own to declare it. */
+@media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll,
+    .js-enabled .animate-on-scroll,
+    .js-enabled .animate-on-scroll.visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 /* ===== Keyframe Animations ===== */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -713,54 +727,88 @@ header.scrolled {
     margin-top: 0.5rem;
 }
 
-/* Stat cards row under the CTA */
+/* Stat row under the CTA.
+
+   Deliberately not cards. The background, border, radius, blur and
+   hover lift are all gone: the hero already carries a headline and
+   two buttons, and three more raised surfaces underneath made the
+   least important information on the screen the most boxy. Nothing
+   here is clickable, so there is no hover state — a lift on a
+   non-interactive stat implies an action that does not exist.
+
+   Three things keep it from reading as loose body text:
+
+     - the icon sits in a small tinted chip. It is an icon, not a
+       card: 26px, --radius-sm, faint fill, no border.
+     - the label is uppercase, letterspaced and small, matching the
+       tag language already used by .path-stages and .challenge-cat.
+       Sentence-case at this size just looks like a stray sentence.
+     - the number is bold and tabular, so the three figures line up
+       on the decimal even as the labels differ in length.
+
+   The three are split by hairlines into one fact line. */
 .hero-stats {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.75rem;
-    margin-top: 2.25rem;
+    align-items: center;
+    /* Caps the strip so it never stretches across a wide screen and
+       starts reading as three things marooned far apart. */
+    max-width: 34rem;
+    margin: 2.5rem auto 0;
 }
 
-.stat-card {
+.stat {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.05rem;
-    border-radius: var(--radius-md);
-    background: rgba(30, 41, 59, 0.55);
-    border: 1px solid var(--color-border-light);
-    backdrop-filter: blur(8px);
-    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    gap: 0.55rem;
+    padding: 0.1rem 1.25rem;
     flex: 0 1 auto;
-    align-self: flex-start;
+    border-left: 1px solid var(--color-border-light);
 }
 
-.stat-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-border);
+/* The outer edges get no padding, so the row is optically centred
+   and the gap either side of each hairline is even. Every media
+   block that re-declares .stat padding must re-assert both of
+   these, or it will silently put the space back on the ends. */
+.stat:first-child {
+    padding-left: 0;
+    border-left: none;
 }
 
-.stat-card i {
-    font-size: 1rem;
-    color: var(--color-primary);
+.stat:last-child {
+    padding-right: 0;
+}
+
+.stat i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 26px;
-    text-align: center;
+    height: 26px;
     flex-shrink: 0;
+    font-size: 0.72rem;
+    color: var(--color-primary);
+    background: rgba(251, 146, 60, 0.12);
+    border-radius: var(--radius-sm);
 }
 
-.stat-card strong {
-    font-size: 1.05rem;
+.stat strong {
+    font-size: 1.35rem;
     font-weight: 800;
     color: var(--color-text);
     line-height: 1.1;
+    font-variant-numeric: tabular-nums;
 }
 
-.stat-card span {
+.stat span {
     font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--color-text-dim);
-    display: block;
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .cta {
@@ -2058,26 +2106,64 @@ footer {
         font-size: 0.88rem;
     }
 
+    /* Still one row, just a compact one. All three fit across a
+       320px screen because each stat is two short lines: the icon
+       chip and number share the first line, and the label sits below
+       them.
+
+       Kept inline instead, the three would need roughly 380px, and a
+       wrapped row would strand the hairline dividers at the start of
+       the second line. */
     .hero-stats {
-        gap: 0.45rem;
-        margin-top: 1.75rem;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0;
+        margin-top: 1.6rem;
     }
 
-    .stat-card {
-        padding: 0.42rem 0.75rem;
+    /* Fixed-width columns, not content-width ones.
+
+       Letting the label size the column made each stat a different
+       width ("LEARNERS" is far shorter than "LEARNING PATHS"), so
+       the hairline dividers ended up unevenly spaced and the row read
+       as three separate things drifting apart. A fixed width makes
+       the dividers land at the same rhythm every time, and lets the
+       longest label wrap to a second line instead of dictating the
+       whole strip's width.
+
+       3 x 4.75rem is ~228px, which clears a 320px screen with room
+       to centre. */
+    .stat {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.3rem;
+        row-gap: 0.1rem;
+        width: 4.75rem;
+        padding: 0 0.3rem;
+        flex: 0 0 auto;
     }
 
-    .stat-card strong {
-        font-size: 0.92rem;
+    .stat span {
+        flex: 0 0 100%;
+        text-align: center;
+        font-size: 0.58rem;
+        letter-spacing: 0.05em;
+        /* Lets "LEARNING PATHS" break into two words rather than
+           forcing the column wider. */
+        white-space: normal;
+        line-height: 1.15;
     }
 
-    .stat-card span {
-        font-size: 0.64rem;
+    .stat i {
+        width: 24px;
+        height: 24px;
+        font-size: 0.68rem;
     }
 
-    .stat-card i {
-        font-size: 0.85rem;
-        width: 22px;
+    .stat strong {
+        font-size: 1.15rem;
     }
 }
 
@@ -2103,26 +2189,47 @@ footer {
         font-size: 0.9rem;
     }
 
+    /* Same two-line compact row as the phone breakpoint, with a
+       little more room to breathe. */
     .hero-stats {
-        gap: 0.55rem;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0;
         margin-top: 1.75rem;
     }
 
-    .stat-card {
-        padding: 0.5rem 0.9rem;
+    /* Fixed-width columns here too, for the same reason as the phone
+       breakpoint: equal columns keep the dividers on an even rhythm.
+       6.5rem is wide enough that "LEARNING PATHS" still sits on one
+       line at this size. */
+    .stat {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.4rem;
+        row-gap: 0.2rem;
+        width: 6.5rem;
+        padding: 0 0.35rem;
+        flex: 0 0 auto;
     }
 
-    .stat-card strong {
-        font-size: 1rem;
+    .stat i {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
     }
 
-    .stat-card span {
-        font-size: 0.68rem;
+    .stat strong {
+        font-size: 1.3rem;
     }
 
-    .stat-card i {
-        font-size: 0.9rem;
-        width: 24px;
+    .stat span {
+        flex: 0 0 100%;
+        text-align: center;
+        font-size: 0.64rem;
+        letter-spacing: 0.06em;
+        line-height: 1.15;
     }
 
     .why-grid {
@@ -2259,21 +2366,34 @@ footer {
     .hero-tagline .tl-line:last-child {
         font-size: clamp(2.4rem, 5.2vw, 3.2rem);
     }
+    /* Desktop keeps the single divided row — there is room for it
+       here, which is the whole reason the hairlines work. */
     .hero-stats {
-        gap: 1rem;
+        margin-top: 2.75rem;
     }
-    .stat-card {
-        padding: 0.85rem 1.4rem;
+    .stat {
+        padding: 0.1rem 1.4rem;
     }
-    .stat-card strong {
-        font-size: 1.2rem;
+
+    /* Re-asserted so the outer edges stay flush at desktop too. */
+    .stat:first-child {
+        padding-left: 0;
     }
-    .stat-card span {
+
+    .stat:last-child {
+        padding-right: 0;
+    }
+
+    .stat strong {
+        font-size: 1.5rem;
+    }
+    .stat span {
         font-size: 0.78rem;
     }
-    .stat-card i {
-        font-size: 1.05rem;
-        width: 28px;
+    .stat i {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
     }
     .why-grid {
         grid-template-columns: repeat(2, 1fr);

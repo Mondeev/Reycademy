@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Challenges — Reycademy</title>
+
+    <script>document.documentElement.classList.add('js-enabled');</script>
+
+    <link rel="icon" href="assets/images/reycademy.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/challenges.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Put your IT skills to the test. Choose a challenge, solve the problem, and prove what you can do.">
+</head>
+<body>
+
+    <!-- ===== HEADER (shared with the landing page) ===== -->
+    <header>
+        <a href="/" id="brand" class="brand-link">
+            <div id="brand-group">
+                <div id="brand-logo" aria-hidden="true">R</div>
+                <div id="brand-text">
+                    <span id="brand-name">Reycademy</span>
+                    <span id="brand-tagline">Free IT tutorials in Tagalog</span>
+                </div>
+            </div>
+        </a>
+
+        <nav id="main-nav">
+            <ul>
+                <li><a href="/" class="nav-link" data-route="home"><i class="fas fa-home nav-icon" aria-hidden="true"></i><span>Home</span></a></li>
+                <li><a href="/#video-introduction" class="nav-link" data-route="why"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span>About</span></a></li>
+                <li><a href="/#why-features" class="nav-link" data-route="features"><i class="fas fa-cogs nav-icon" aria-hidden="true"></i><span>Features</span></a></li>
+                <li><a href="/#videos" class="nav-link" data-route="videos"><i class="fas fa-video nav-icon" aria-hidden="true"></i><span>Videos</span></a></li>
+                <li><a href="/#faq" class="nav-link" data-route="faq"><i class="fas fa-circle-question nav-icon" aria-hidden="true"></i><span>FAQ</span></a></li>
+                <li><a href="paths.html" class="nav-link" data-route="paths"><i class="fas fa-route nav-icon" aria-hidden="true"></i><span>Paths</span></a></li>
+                <li><a href="challenges.html" class="nav-link active" data-route="challenges" aria-current="page"><i class="fas fa-flag-checkered nav-icon" aria-hidden="true"></i><span>Challenges</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="nav-actions">
+            <div id="profile-container">
+                <img src="assets/images/reycademy.png" id="profile" alt="Reycademy Logo">
+            </div>
+            <a href="login.html" id="nav-signin" class="nav-cta secondary"><i class="fas fa-user"></i> Sign In</a>
+            <a href="signup.html" id="nav-signup" class="nav-cta primary"><i class="fas fa-user-plus"></i> Sign Up</a>
+            <button id="hamburger-icon" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== SIDEBAR (shared with the landing page) ===== -->
+    <div id="sidebar-overlay"></div>
+    <div id="sidebar">
+        <div id="sidebar-top">
+            <div id="sidebar-brand">
+                <div id="sidebar-logo" aria-hidden="true">R</div>
+                <div id="sidebar-text">
+                    <span id="sidebar-name">Reycademy</span>
+                    <span id="sidebar-tagline">Free IT tutorials in Tagalog</span>
+                </div>
+            </div>
+            <button id="hide-sideBar" aria-label="Close menu">&#10005;</button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-group">
+                <span class="sidebar-group-title first">Explore</span>
+                <a href="/" class="menu-item" data-route="home"><i class="fas fa-home"></i> Home</a>
+                <a href="/#video-introduction" class="menu-item" data-route="why"><i class="fas fa-lightbulb"></i> About</a>
+                <a href="/#why-features" class="menu-item" data-route="features"><i class="fas fa-cogs"></i> Features</a>
+                <a href="/#videos" class="menu-item" data-route="videos"><i class="fas fa-video"></i> Videos</a>
+                <a href="/#faq" class="menu-item" data-route="faq"><i class="fas fa-circle-question"></i> FAQ</a>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-group-title">Learn</span>
+                <a href="paths.html" class="menu-item" data-route="paths"><i class="fas fa-route"></i> Paths</a>
+                <a href="challenges.html" class="menu-item active" data-route="challenges" aria-current="page"><i class="fas fa-flag-checkered"></i> Challenges</a>
+            </div>
+        </nav>
+
+        <div id="sidebar-bottom">
+            <a href="login.html" class="sidebar-cta secondary"><i class="fas fa-user"></i> Sign In</a>
+            <a href="signup.html" class="sidebar-cta primary"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- ===== COOKIE CONSENT (shared with the landing page) ===== -->
+        <div id="cookie-consent">
+            <div id="pop-up">
+                <p>Reycademy uses cookies only to <strong>remember your learning progress</strong>. No tracking, no ads.</p>
+                <button id="pop-up-button">Got it!</button>
+            </div>
+        </div>
+
+        <!-- The intro hero was removed so the challenge browser is the
+             first thing on the page; the landing page keeps its hero
+             because that is where the site itself is introduced. -->
+
+        <!-- ===== CHALLENGE DETAIL / LAB VIEW =====
+             Shown instead of the hub when a challenge is opened.
+             Markup is rendered from the challenge data, so a real
+             backend can drive the same structure later. -->
+        <section id="lab-view" class="lab-view" hidden></section>
+
+        <!-- ===== CHALLENGE HUB ===== -->
+        <div id="challenge-hub">
+            <section id="challenge-browser">
+                <div class="hub-header animate-on-scroll">
+                    <!-- h1 rather than h2: the hero used to hold the page's
+                         h1, and the page should still have exactly one. -->
+                    <h1><span class="hub-word">Choose a</span> <span class="hub-brand">Challenge</span></h1>
+                    <p>Pick a problem, apply what you know, and see how far you can go.</p>
+                </div>
+
+                <!-- Filters. The search box and both groups run off the same
+                     data that drives the cards, so adding a category adds
+                     its filter automatically. -->
+                <div class="filters animate-on-scroll" role="group" aria-label="Filter challenges">
+
+                    <!-- Order inside the field is load-bearing: the icon
+                         must be the input's immediate next sibling so the
+                         CSS can reach it with `+ i`. The clear button and
+                         the shortcut badge follow it and share one
+                         right-hand slot — the badge while the field is
+                         empty, the button the moment there is a value. -->
+                    <div class="filter-search">
+                        <input type="search" id="challenge-search"
+                               placeholder="Search by title, topic, tool..."
+                               autocomplete="off" spellcheck="false"
+                               aria-keyshortcuts="/"
+                               aria-label="Search challenges by title, category, difficulty, scenario or tools">
+                        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                        <button class="search-clear" type="button" id="search-clear"
+                                aria-label="Clear search" hidden>
+                            <i class="fas fa-xmark" aria-hidden="true"></i>
+                        </button>
+                        <kbd class="search-kbd" aria-hidden="true">/</kbd>
+                    </div>
+
+                    <div class="filter-group">
+                        <span class="filter-label" id="filter-cat-label">
+                            <i class="fas fa-tags" aria-hidden="true"></i> Category
+                        </span>
+                        <div class="filter-chips" id="filter-categories" aria-labelledby="filter-cat-label"></div>
+                    </div>
+
+                    <div class="filter-group">
+                        <span class="filter-label" id="filter-diff-label">
+                            <i class="fas fa-gauge" aria-hidden="true"></i> Difficulty
+                        </span>
+                        <div class="filter-chips" id="filter-difficulties" aria-labelledby="filter-diff-label"></div>
+                    </div>
+
+                    <div class="filter-foot">
+                        <span class="filter-count" id="challenge-count" role="status" aria-live="polite"></span>
+                        <button class="filter-clear" type="button" data-clear-filters>
+                            <i class="fas fa-rotate-left" aria-hidden="true"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cards are rendered from the CHALLENGES array -->
+                <div class="challenge-grid" id="challenge-grid"></div>
+
+                <div class="challenge-empty" id="challenge-empty" hidden>
+                    <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                    <h3>No challenges found.</h3>
+                    <p>Try adjusting your search or filters.</p>
+                </div>
+            </section>
+
+            <!-- ===== LEADERBOARD =====
+                 The column header strip was removed: every column
+                 already labels itself (check icon for completed, a
+                 literal "XP" suffix on the number), so the uppercase
+                 header row was saying nothing while costing vertical
+                 space and reading as an admin table.
+
+                 The copy no longer advertises itself as placeholder
+                 data. The standings are still sample rows in
+                 challenges.js — that is a backend task, not something
+                 the page should be apologetic about. -->
+            <section id="leaderboard-section">
+                <div class="lb-header animate-on-scroll">
+                    <h2><span class="lb-word">Top</span> <span class="lb-brand">Challengers</span></h2>
+                    <p>Ranked by challenges completed and XP earned.</p>
+                </div>
+
+                <div class="lb-panel">
+                    <ol class="lb-list" id="leaderboard-list"></ol>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER (shared with the landing page) ===== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo-badge" aria-hidden="true">R</div>
+                <div class="footer-brand-text">
+                    <span class="footer-brand-name">Reycademy</span>
+                    <span class="footer-brand-tagline">Free IT tutorials in Tagalog</span>
+                </div>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <a href="/">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="/#videos">Videos</a>
+                    <a href="paths.html">Paths</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="/#videos">Video Tutorials</a>
+                    <a href="paths.html">Learning Paths</a>
+                    <a href="challenges.html">Challenges</a>
+                    <a href="#">Cheatsheets</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://www.youtube.com/@reycademy" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://github.com/Mondeev" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:raymondjoaquin50@gmail.com"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="footer-year">2025</span> Reycademy. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="terms.html" class="legal-container">Terms of Use</a>
+                <a href="privacy.html" class="legal-container">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/faq.js"></script>
+    <script src="assets/js/bar.js"></script>
+    <script src="assets/js/updateUI.js"></script>
+    <script src="assets/js/scrollAnimations.js"></script>
+    <script src="assets/js/challenges.js"></script>
+</body>
+</html>

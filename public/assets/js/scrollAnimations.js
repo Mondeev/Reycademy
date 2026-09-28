@@ -1,19 +1,15 @@
 // ===== Scroll Animation Observer =====
 document.addEventListener("DOMContentLoaded", () => {
-    const animatedElements = document.querySelectorAll(".animate-on-scroll");
-
-    // Safety net: if IntersectionObserver is unavailable or fails to fire
-    // within 2.5 seconds, force everything visible so content is never hidden.
-    const safetyTimer = setTimeout(() => {
-        animatedElements.forEach((el) => {
-            el.classList.add("visible");
-            el.style.opacity = "1";
-            el.style.transform = "none";
-        });
-    }, 2500);
+    // The observer is reusable rather than a one-shot scan. Most pages are
+    // fully written before this file runs, but the challenge grid and the
+    // leaderboard are rendered from data, so that markup only exists after
+    // this handler has already finished. Those pages call
+    // window.revealOnScroll() once they have injected it.
+    const observed = new WeakSet();
+    let observer = null;
 
     if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(
+        observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
@@ -27,19 +23,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 rootMargin: "0px 0px -50px 0px",
             }
         );
-
-        animatedElements.forEach((el) => observer.observe(el));
-    } else {
-        // Browser doesn't support IntersectionObserver — show everything immediately
-        animatedElements.forEach((el) => el.classList.add("visible"));
     }
 
-    // Clear the safety timer once an animation has fired for at least one element
-    const firstVisible = () => {
-        clearTimeout(safetyTimer);
-        document.removeEventListener("animationstart", firstVisible);
-    };
-    document.addEventListener("animationstart", firstVisible);
+    // Reveals everything still hidden inside `root`, defaulting to the whole
+    // document. Safe to call more than once: elements that are already
+    // revealed, or already being watched, are skipped — so a list that
+    // re-renders does not re-animate every card on each keystroke.
+    function revealOnScroll(root) {
+        const scope = root || document;
+        const pending = [];
+
+        scope.querySelectorAll(".animate-on-scroll:not(.visible)").forEach((el) => {
+            if (!observed.has(el)) {
+                observed.add(el);
+                pending.push(el);
+            }
+        });
+
+        if (pending.length === 0) return;
+
+        // Browser doesn't support IntersectionObserver — show everything now.
+        if (!observer) {
+            pending.forEach((el) => el.classList.add("visible"));
+            return;
+        }
+
+        pending.forEach((el) => observer.observe(el));
+
+        // Safety net: if the observer never fires — the element is never
+        // scrolled into view, or the page is too short to scroll at all —
+        // the content must not be left sitting at opacity 0.
+        setTimeout(() => {
+            pending.forEach((el) => {
+                if (!el.classList.contains("visible")) {
+                    el.classList.add("visible");
+                    observer.unobserve(el);
+                }
+            });
+        }, 2500);
+    }
+
+    // Exposed for pages that render their own markup.
+    window.revealOnScroll = revealOnScroll;
+
+    revealOnScroll();
 
     const header = document.querySelector("header");
 
@@ -59,8 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
         why: "video-introduction",
         features: "why-features",
         videos: "videos",
-        paths: null,         // placeholder, no section yet
-        challenges: null,    // placeholder, no section yet
+        paths: null,         // own page (/paths), not a section
+        challenges: null,    // own page (/challenges), not a section
         faq: "faq",
     };
 
@@ -109,5 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    window.addEventListener("scroll", updateActiveByScroll, { passive: true });
+    // Standalone pages (e.g. /paths) have no in-page sections to spy on.
+    // Without this guard the function would run, find nothing, and strip the
+    // active state off whatever nav item the server already marked as current.
+    if (sections.length > 0) {
+        window.addEventListener("scroll", updateActiveByScroll, { passive: true });
+    }
 });

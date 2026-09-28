@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Learning Paths — Reycademy</title>
+
+    <script>document.documentElement.classList.add('js-enabled');</script>
+
+    <link rel="icon" href="assets/images/reycademy.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/paths.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Not sure where to start? Choose a Reycademy learning path and learn IT step by step in Tagalog.">
+</head>
+<body>
+
+    <!-- ===== HEADER (shared with the landing page) ===== -->
+    <header>
+        <a href="/" id="brand" class="brand-link">
+            <div id="brand-group">
+                <div id="brand-logo" aria-hidden="true">R</div>
+                <div id="brand-text">
+                    <span id="brand-name">Reycademy</span>
+                    <span id="brand-tagline">Free IT tutorials in Tagalog</span>
+                </div>
+            </div>
+        </a>
+
+        <nav id="main-nav">
+            <ul>
+                <li><a href="/" class="nav-link" data-route="home"><i class="fas fa-home nav-icon" aria-hidden="true"></i><span>Home</span></a></li>
+                <li><a href="/#video-introduction" class="nav-link" data-route="why"><i class="fas fa-info-circle nav-icon" aria-hidden="true"></i><span>About</span></a></li>
+                <li><a href="/#why-features" class="nav-link" data-route="features"><i class="fas fa-cogs nav-icon" aria-hidden="true"></i><span>Features</span></a></li>
+                <li><a href="/#videos" class="nav-link" data-route="videos"><i class="fas fa-video nav-icon" aria-hidden="true"></i><span>Videos</span></a></li>
+                <li><a href="/#faq" class="nav-link" data-route="faq"><i class="fas fa-circle-question nav-icon" aria-hidden="true"></i><span>FAQ</span></a></li>
+                <li><a href="paths.html" class="nav-link active" data-route="paths" aria-current="page"><i class="fas fa-route nav-icon" aria-hidden="true"></i><span>Paths</span></a></li>
+                <li><a href="challenges.html" class="nav-link" data-route="challenges"><i class="fas fa-flag-checkered nav-icon" aria-hidden="true"></i><span>Challenges</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="nav-actions">
+            <div id="profile-container">
+                <img src="assets/images/reycademy.png" id="profile" alt="Reycademy Logo">
+            </div>
+            <a href="login.html" id="nav-signin" class="nav-cta secondary"><i class="fas fa-user"></i> Sign In</a>
+            <a href="signup.html" id="nav-signup" class="nav-cta primary"><i class="fas fa-user-plus"></i> Sign Up</a>
+            <button id="hamburger-icon" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== SIDEBAR (shared with the landing page) ===== -->
+    <div id="sidebar-overlay"></div>
+    <div id="sidebar">
+        <div id="sidebar-top">
+            <div id="sidebar-brand">
+                <div id="sidebar-logo" aria-hidden="true">R</div>
+                <div id="sidebar-text">
+                    <span id="sidebar-name">Reycademy</span>
+                    <span id="sidebar-tagline">Free IT tutorials in Tagalog</span>
+                </div>
+            </div>
+            <button id="hide-sideBar" aria-label="Close menu">&#10005;</button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-group">
+                <span class="sidebar-group-title first">Explore</span>
+                <a href="/" class="menu-item" data-route="home"><i class="fas fa-home"></i> Home</a>
+                <a href="/#video-introduction" class="menu-item" data-route="why"><i class="fas fa-lightbulb"></i> About</a>
+                <a href="/#why-features" class="menu-item" data-route="features"><i class="fas fa-cogs"></i> Features</a>
+                <a href="/#videos" class="menu-item" data-route="videos"><i class="fas fa-video"></i> Videos</a>
+                <a href="/#faq" class="menu-item" data-route="faq"><i class="fas fa-circle-question"></i> FAQ</a>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-group-title">Learn</span>
+                <a href="paths.html" class="menu-item active" data-route="paths" aria-current="page"><i class="fas fa-route"></i> Paths</a>
+                <a href="challenges.html" class="menu-item" data-route="challenges"><i class="fas fa-flag-checkered"></i> Challenges</a>
+            </div>
+        </nav>
+
+        <div id="sidebar-bottom">
+            <a href="login.html" class="sidebar-cta secondary"><i class="fas fa-user"></i> Sign In</a>
+            <a href="signup.html" class="sidebar-cta primary"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- ===== COOKIE CONSENT (shared with the landing page) ===== -->
+        <div id="cookie-consent">
+            <div id="pop-up">
+                <p>Reycademy uses cookies only to <strong>remember your learning progress</strong>. No tracking, no ads.</p>
+                <button id="pop-up-button">Got it!</button>
+            </div>
+        </div>
+
+        <!-- ===== CHOOSE YOUR PATH =====
+             This is the top of the page. The intro hero was removed so
+             the paths are the first thing a visitor sees; the landing
+             page keeps its hero since that is where the site is
+             introduced. -->
+        <section id="choose-path">
+            <!-- h1 here rather than an h2: the hero used to carry the
+                 page's h1, and the page should still have exactly one. -->
+            <div class="paths-header animate-on-scroll">
+                <h1><span class="ph-word">Choose</span> <span class="ph-brand">Your Path</span></h1>
+                <p>Start with the fundamentals and work your way forward.</p>
+            </div>
+
+            <!-- Each card links to its own roadmap page (paths/<slug>.html),
+                 which is the next piece of the system to be built.
+
+                 Each card carries its own data-accent so six directions read
+                 as six distinct routes rather than six copies of one tile.
+                 The rail under the title is the shape of the path — one tick
+                 per stage — and describes the path itself, not the visitor's
+                 position on it. Nothing here is progress data. -->
+            <div class="paths-grid">
+
+                <a class="path-card animate-on-scroll" href="paths/web-development.html" data-accent="orange">
+                    <div class="path-card-top">
+                        <span class="path-icon" aria-hidden="true"><i class="fas fa-code"></i></span>
+                        <span class="path-stages">6 stages</span>
+                    </div>
+                    <h3>Web Development</h3>
+                    <div class="path-rail" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p>Learn how websites and web applications are built, from HTML and CSS to the logic behind interactive pages.</p>
+                    <div class="path-card-foot">
+                        <span class="path-action">View path <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+
+                <a class="path-card animate-on-scroll" href="paths/cybersecurity.html" data-accent="rose">
+                    <div class="path-card-top">
+                        <span class="path-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></span>
+                        <span class="path-stages">5 stages</span>
+                    </div>
+                    <h3>Cybersecurity</h3>
+                    <div class="path-rail" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p>Learn the fundamentals of staying safe online — threats, defenses, and the security concepts behind every device.</p>
+                    <div class="path-card-foot">
+                        <span class="path-action">View path <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+
+                <a class="path-card animate-on-scroll" href="paths/it-support.html" data-accent="teal">
+                    <div class="path-card-top">
+                        <span class="path-icon" aria-hidden="true"><i class="fas fa-headset"></i></span>
+                        <span class="path-stages">5 stages</span>
+                    </div>
+                    <h3>IT Support</h3>
+                    <div class="path-rail" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p>Learn to troubleshoot computers — operating systems, software problems, and the everyday fixes that keep things running.</p>
+                    <div class="path-card-foot">
+                        <span class="path-action">View path <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+
+                <a class="path-card animate-on-scroll" href="paths/networking.html" data-accent="cyan">
+                    <div class="path-card-top">
+                        <span class="path-icon" aria-hidden="true"><i class="fas fa-network-wired"></i></span>
+                        <span class="path-stages">5 stages</span>
+                    </div>
+                    <h3>Networking</h3>
+                    <div class="path-rail" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p>Understand how devices talk to each other — IP addressing, common protocols, and how to spot network problems.</p>
+                    <div class="path-card-foot">
+                        <span class="path-action">View path <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+
+                <a class="path-card animate-on-scroll" href="paths/game-development.html" data-accent="violet">
+                    <div class="path-card-top">
+                        <span class="path-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></span>
+                        <span class="path-stages">6 stages</span>
+                    </div>
+                    <h3>Game Development</h3>
+                    <div class="path-rail" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p>Learn the fundamentals of creating games — how they are structured, how they behave, and how to bring your own ideas to life.</p>
+                    <div class="path-card-foot">
+                        <span class="path-action">View path <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+
+                <a class="path-card animate-on-scroll" href="paths/programming.html" data-accent="green">
+                    <div class="path-card-top">
+                        <span class="path-icon" aria-hidden="true"><i class="fas fa-code-branch"></i></span>
+                        <span class="path-stages">6 stages</span>
+                    </div>
+                    <h3>Programming</h3>
+                    <div class="path-rail" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p>Learn programming fundamentals and problem-solving — the thinking behind code that applies to every IT path.</p>
+                    <div class="path-card-foot">
+                        <span class="path-action">View path <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+
+            </div>
+
+            <p class="paths-note animate-on-scroll">
+                More paths are on the way. Start with one now — you can always switch later.
+            </p>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER (shared with the landing page) ===== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo-badge" aria-hidden="true">R</div>
+                <div class="footer-brand-text">
+                    <span class="footer-brand-name">Reycademy</span>
+                    <span class="footer-brand-tagline">Free IT tutorials in Tagalog</span>
+                </div>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <a href="/">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="/#videos">Videos</a>
+                    <a href="paths.html">Paths</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="/#videos">Video Tutorials</a>
+                    <a href="paths.html">Learning Paths</a>
+                    <a href="challenges.html">Challenges</a>
+                    <a href="#">Cheatsheets</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://www.youtube.com/@reycademy" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://github.com/Mondeev" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:raymondjoaquin50@gmail.com"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="footer-year">2025</span> Reycademy. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="terms.html" class="legal-container">Terms of Use</a>
+                <a href="privacy.html" class="legal-container">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/faq.js"></script>
+    <script src="assets/js/bar.js"></script>
+    <script src="assets/js/updateUI.js"></script>
+    <script src="assets/js/scrollAnimations.js"></script>
+</body>
+</html>

@@ -1,0 +1,1235 @@
+/* ============================================
+   REYCADEMY — CHALLENGES PAGE
+   Page-specific styles only. Built from the tokens and
+   components already in style.css (radius/shadow/
+   transition variables, button and tag styles).
+
+   The page opens straight into the challenge browser;
+   there is no hero here. The landing page is the only
+   page that keeps one, so #challenge-browser carries the
+   fixed-navbar offset that .page-hero used to hold.
+   ============================================ */
+
+/* The browser's own [hidden] rule is a user-agent style, so any
+   author `display` declaration (e.g. .challenge-grid's grid) beats
+   it and `el.hidden = true` would silently do nothing. Restate it
+   here — this is what the JS relies on to swap hub and lab view. */
+[hidden] {
+    display: none !important;
+}
+
+/* ===== SECTION HEADINGS ===== */
+.hub-header,
+.lb-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* The hub heading is an h1 now that the hero is gone, so the page
+   still has exactly one top-level heading. The leaderboard keeps
+   its h2 — it is a section below the hub, not the page itself. */
+.hub-header h1,
+.lb-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+}
+
+.hub-header .hub-brand,
+.lb-header .lb-brand {
+    color: var(--color-primary);
+}
+
+.hub-header p,
+.lb-header p {
+    color: var(--color-text-muted);
+    font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* ===== CHALLENGE BROWSER =====
+   Top of the page. The intro hero was removed so this section sits
+   directly under the navbar, which means the fixed-header offset
+   that used to live on .page-hero now lives here instead. Without it
+   the first heading would slide under the navbar.
+
+   Same 44px grid as the landing hero and the paths page, at the
+   same low strength, so all three read as one site. isolation:isolate
+   keeps the texture behind the content rather than letting a
+   z-index:-1 pseudo slip under the section's own background. */
+#challenge-browser {
+    position: relative;
+    isolation: isolate;
+    margin-top: var(--header-height);
+    padding: 4rem 1.25rem;
+    width: 100%;
+    background: linear-gradient(180deg, #0a0f1a 0%, #0b1220 100%);
+}
+
+#challenge-browser::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        linear-gradient(rgba(251, 146, 60, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(251, 146, 60, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ===== FILTERS =====
+   Built from the same pill vocabulary as the kicker and the
+   stage badges, so they read as part of the site rather than
+   as an admin toolbar.
+
+   Sized as a compact toolbar, not a section: each group is a
+   title over a single line of pills, and the pills keep their
+   natural width so they scroll sideways rather than stack
+   one-per-line on a phone. */
+/* No card of its own: the controls sit directly in the lab
+   section so the challenge cards keep the visual weight. */
+.filters {
+    max-width: 1200px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+/* Search sits above the two chip rows and spans the same width,
+   so it reads as the first thing you reach for. The icon is
+   absolutely positioned rather than a flex item, which keeps the
+   placeholder and the caret aligned to one text column.
+
+   The direct-child selector below is load-bearing: the clear
+   button has an icon of its own, and a descendant selector would
+   pull that one out of the button and onto the left edge of the
+   field. */
+.filter-search {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.filter-search > i {
+    position: absolute;
+    top: 50%;
+    left: 0.95rem;
+    transform: translateY(-50%);
+    color: var(--color-text-dim);
+    font-size: 0.85rem;
+    pointer-events: none;
+    transition: color var(--transition-fast);
+}
+
+.filter-search input {
+    width: 100%;
+    min-height: 46px;
+    /* Left padding clears the magnifier; the right side is wider
+       because the clear button is a circle and would otherwise
+       sit against the border. */
+    padding: 0.7rem 2.8rem 0.7rem 2.6rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    outline: none;
+    /* The WebKit native clear button is suppressed because the
+       field carries its own; without this it would also land on
+       top of the icon padding. */
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color var(--transition-fast),
+                background var(--transition-fast),
+                box-shadow var(--transition-fast);
+}
+
+/* Hover lifts the field just short of the focus state, so a
+   mouse user gets the same "this is live" cue without the ring
+   being claimed by something that is not focused. */
+.filter-search input:hover:not(:focus) {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.filter-search input::placeholder {
+    color: var(--color-text-dim);
+}
+
+.filter-search input:focus {
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.12);
+}
+
+.filter-search input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Clear button. The browser's own clear affordance is turned off
+   above, so this is the only way to empty the field without
+   reaching for the Reset link further down. It stays hidden until
+   there is a value (JS toggles the hidden attribute) so it is
+   never a dead control in the corner. */
+.search-clear {
+    position: absolute;
+    top: 50%;
+    right: 0.55rem;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    color: var(--color-text-dim);
+    font-size: 0.78rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color var(--transition-fast),
+                background var(--transition-fast),
+                border-color var(--transition-fast);
+}
+
+.search-clear:hover {
+    color: #fff;
+    background: rgba(251, 146, 60, 0.2);
+    border-color: rgba(251, 146, 60, 0.45);
+}
+
+/* Keyboard focus gets a visible ring. The button sits on a dark
+   field, so the ring is drawn outside the element and a plain
+   outline would be clipped by the field's own edge. */
+.search-clear:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* The shortcut badge shares the clear button's slot. It is a hint
+   about an empty field, so it fades out the moment there is a
+   value — the clear button takes over that position — and while
+   the field is focused, where the keyboard is already in use. */
+.search-kbd {
+    position: absolute;
+    top: 50%;
+    right: 0.7rem;
+    transform: translateY(-50%);
+    min-width: 20px;
+    padding: 0.12rem 0.38rem;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--color-text-dim);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border-light);
+    border-radius: 6px;
+    pointer-events: none;
+    transition: opacity var(--transition-fast);
+}
+
+.filter-search input:not(:placeholder-shown) ~ .search-kbd,
+.filter-search input:focus ~ .search-kbd {
+    opacity: 0;
+}
+
+/* Title on its own line, options directly beneath it, at every
+   width. Keeping the label out of the scrolling row is what leaves
+   it fixed and visible while the pills move. */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+}
+
+.filter-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+}
+
+.filter-label i {
+    color: var(--color-primary);
+}
+
+/* The options are one line at every width. When they outgrow the
+   row they scroll inside it rather than wrapping, which keeps the
+   two groups visually parallel and stops a wrapped third line from
+   pushing the count/Reset row around. Wide screens never overflow,
+   so the scroll here is invisible until it's actually needed.
+
+   align-self: stretch is load-bearing: the group uses
+   align-items: flex-start, so without it this row would size to
+   max-content and push the page sideways instead of scrolling.
+   scrollbar is hidden because the partially visible pill is the
+   cue, and a second scrollbar on the filter area would be noise. */
+.filter-chips {
+    display: flex;
+    flex-wrap: nowrap;
+    align-self: stretch;
+    gap: 0.4rem;
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    /* Firefox */
+    scrollbar-width: none;
+    /* legacy Edge/IE */
+    -ms-overflow-style: none;
+    /* Lets the last pill rest clear of the edge once scrolled to
+       the end. */
+    padding-right: 1.25rem;
+}
+
+/* Chrome/Safari/Edge */
+.filter-chips::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-chips .filter-chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.8rem;
+    min-height: 40px;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: color var(--transition-fast),
+                background var(--transition-fast),
+                border-color var(--transition-fast);
+}
+
+.filter-chip i {
+    font-size: 0.8rem;
+    opacity: 0.75;
+}
+
+.filter-chip:hover {
+    color: var(--color-text);
+    border-color: var(--color-border);
+    background: rgba(251, 146, 60, 0.07);
+}
+
+.filter-chip.active {
+    color: #0f172a;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border-color: transparent;
+}
+
+.filter-chip.active i {
+    opacity: 1;
+}
+
+.filter-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Count and Reset stay on one line and read as secondary
+   chrome. The hairline that used to separate them was an
+   inset divider inside the card, so it goes with the card. */
+.filter-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.filter-count {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-dim);
+    font-variant-numeric: tabular-nums;
+}
+
+.filter-clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    min-height: 38px;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.filter-clear:hover {
+    color: var(--color-primary);
+    border-color: var(--color-border);
+}
+
+/* ===== CHALLENGE CARDS =====
+   Same surface language as the path cards, but the top row
+   carries two tags instead of one icon, which is what makes
+   a challenge scannable by category and difficulty. */
+.challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.challenge-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 1.5rem;
+    background: linear-gradient(180deg, rgba(20, 28, 48, 0.95), rgba(16, 22, 38, 0.95));
+    border: 1px solid var(--color-border-light);
+    border-top: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(12px);
+    transition: transform var(--transition-base),
+                border-color var(--transition-base),
+                box-shadow var(--transition-base);
+}
+
+/* Low strength at rest, full on hover — same trick as the path
+   cards, so the grid is not a wall of identical grey rectangles
+   before the pointer ever reaches it. */
+.challenge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    opacity: 0.3;
+    transition: opacity var(--transition-base);
+}
+
+.challenge-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-border);
+    border-top-color: var(--color-secondary);
+    box-shadow: var(--shadow-lg);
+}
+
+.challenge-card:hover::before {
+    opacity: 1;
+}
+
+.challenge-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Catalogue reference. Monospaced and quiet on purpose — it labels
+   the problem the way a lab worksheet would, and it gives each card
+   an identity the grid can be scanned by. */
+.challenge-ref {
+    font-family: ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--color-text-dim);
+    opacity: 0.75;
+}
+
+/* Category stays a tag. It is a topic, so it keeps tag shape. */
+.challenge-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-light);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+.challenge-cat i {
+    font-size: 0.7rem;
+    color: var(--color-primary);
+}
+
+.challenge-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+}
+
+/* The scenario is the reason to open this card, so it is the
+   loudest body text on it — larger and lighter than everything
+   around it. The left rule is the one place a "margin note" cue
+   appears in the whole design, which is what makes the problem
+   read as a problem rather than as card filler. */
+.challenge-scenario {
+    position: relative;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    opacity: 0.88;
+    line-height: 1.65;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--color-border);
+}
+
+/* Spec row. Tier, effort and reward are different kinds of fact,
+   so they are no longer three identical pills: the meter reads as
+   a level, the clock is quiet, and the reward is the only warm
+   one. */
+.challenge-specs {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    color: var(--color-text-dim);
+}
+
+.challenge-tier {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+/* Three ticks, filled by tier. The word is always present beside
+   it, so the level is never carried by colour or by shape alone. */
+.tier-meter {
+    display: inline-flex;
+    gap: 3px;
+}
+
+.tier-meter i {
+    width: 12px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tier-meter i.on {
+    background: currentColor;
+}
+
+.tier-beginner { color: var(--color-text-muted); }
+.tier-intermediate { color: var(--color-secondary); }
+.tier-advanced { color: var(--color-primary); }
+
+.challenge-effort,
+.challenge-reward {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.challenge-effort i {
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+}
+
+.challenge-reward {
+    color: var(--color-secondary);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.challenge-reward i {
+    font-size: 0.75rem;
+    color: var(--color-primary);
+}
+
+.challenge-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--color-border-light);
+}
+
+/* Status: icon + wording, not colour on its own */
+.challenge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-dim);
+}
+
+.challenge-status i {
+    font-size: 0.72rem;
+}
+
+.challenge-status.status-progress {
+    color: var(--color-secondary);
+}
+
+.challenge-status.status-progress i {
+    color: var(--color-secondary);
+}
+
+.challenge-status.status-done {
+    color: var(--color-primary);
+}
+
+.challenge-status.status-done i {
+    color: var(--color-primary);
+}
+
+.challenge-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.1rem;
+    min-height: 42px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0f172a;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.challenge-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.35);
+}
+
+.challenge-start:focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+}
+
+.challenge-start i {
+    font-size: 0.75rem;
+    transition: transform var(--transition-fast);
+}
+
+.challenge-start:hover i {
+    transform: translateX(3px);
+}
+
+/* Empty state */
+.challenge-empty {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    border: 1px dashed var(--color-border-light);
+    border-radius: var(--radius-lg);
+}
+
+.challenge-empty i {
+    font-size: 1.75rem;
+    color: var(--color-text-dim);
+    margin-bottom: 0.75rem;
+}
+
+.challenge-empty h3 {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-bottom: 0.35rem;
+}
+
+.challenge-empty p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+/* ===== LEADERBOARD =====
+   Reads as a result of the browser above it, not as a separate
+   admin table bolted on underneath. Three things do that work:
+
+     - the header row is gone. Every column already labels itself
+       (check icon for completed, a literal "XP" suffix on the
+       number), so the uppercase header strip was pure dashboard
+       furniture and cost a row of vertical space to say nothing.
+     - rank is the visual anchor rather than the first of four
+       equal columns, because rank is what the section is about.
+     - the top three get a left accent rail, not just a coloured
+       numeral, so the podium is visible while scrolling. */
+#leaderboard-section {
+    padding: 4rem 1.25rem 5rem;
+    width: 100%;
+    border-top: 1px solid var(--color-border-light);
+    background: radial-gradient(ellipse at top, rgba(51, 65, 85, 0.4), transparent 65%),
+                linear-gradient(180deg, #0b1220 0%, #0a0e18 100%);
+}
+
+.lb-panel {
+    max-width: 760px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, rgba(20, 28, 48, 0.95), rgba(16, 22, 38, 0.95));
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+/* Fixed columns total 212px, which leaves the 1fr user column enough
+   room to absorb long names without forcing a horizontal scrollbar at
+   320px. The user cell carries min-width:0 and overflow-wrap:anywhere
+   for the same reason. */
+.lb-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 44px 1fr 88px 80px;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--color-border-light);
+    transition: background var(--transition-fast);
+}
+
+/* Podium rail. Sits inside the panel's left edge so it does not
+   need the row to grow or shift. */
+.lb-gold,
+.lb-silver,
+.lb-bronze {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.lb-gold::before,
+.lb-silver::before,
+.lb-bronze::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+}
+
+.lb-gold::before { background: var(--color-secondary); }
+.lb-silver::before { background: #cbd5e1; }
+.lb-bronze::before { background: #d97706; }
+
+.lb-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lb-row:last-child {
+    border-bottom: none;
+}
+
+.lb-row:hover {
+    background: rgba(251, 146, 60, 0.05);
+}
+
+.lb-rank {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-text-dim);
+    font-variant-numeric: tabular-nums;
+    text-align: left;
+    letter-spacing: -0.02em;
+}
+
+/* The avatar is nested inside the user cell, so every row is
+   exactly four children: rank, user, completed, XP. That keeps
+   the grid honest at every breakpoint. */
+.lb-user {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+}
+
+.lb-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: 50%;
+}
+
+.lb-done {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.lb-done i {
+    font-size: 0.72rem;
+    color: var(--color-primary);
+    opacity: 0.8;
+}
+
+.lb-xp {
+    text-align: right;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.lb-gold .lb-rank { color: var(--color-secondary); }
+.lb-silver .lb-rank { color: #cbd5e1; }
+.lb-bronze .lb-rank { color: #d97706; }
+
+/* ===== LAB VIEW (challenge detail foundation) =====
+   Deliberately simple: a back link, the brief, and the answer
+   area. Everything here is rendered from the challenge object,
+   so real objectives, hints, and submissions can slot in
+   without restructuring the page. */
+.lab-view {
+    padding: 3rem 1.25rem 5rem;
+    width: 100%;
+    background: linear-gradient(180deg, #0a0f1a 0%, #0b1220 100%);
+}
+
+.lab-panel {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.lab-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    min-height: 40px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: all var(--transition-fast);
+}
+
+.lab-back:hover {
+    color: var(--color-primary);
+    border-color: var(--color-border);
+}
+
+.lab-head {
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.lab-head .challenge-card-top {
+    margin-bottom: 0.85rem;
+}
+
+.lab-title {
+    font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.85rem;
+}
+
+.lab-rewards {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+}
+
+.lab-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.lab-block {
+    padding: 1.35rem;
+    background: linear-gradient(180deg, rgba(20, 28, 48, 0.9), rgba(16, 22, 38, 0.9));
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+}
+
+.lab-block-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+    margin-bottom: 0.85rem;
+}
+
+.lab-block-title i {
+    color: var(--color-primary);
+}
+
+.lab-text {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.lab-objectives {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.lab-objectives li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+.lab-objectives i {
+    font-size: 0.35rem;
+    color: var(--color-primary);
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+}
+
+.lab-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.lab-tool {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+}
+
+.lab-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.lab-workspace {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    font-family: ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, monospace;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    background: rgba(8, 14, 28, 0.7);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    resize: vertical;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.lab-workspace::placeholder {
+    color: var(--color-text-dim);
+}
+
+.lab-workspace:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.15);
+}
+
+.lab-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.lab-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.75rem;
+    min-height: 46px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    border-radius: var(--radius-md);
+}
+
+.lab-feedback {
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+    flex: 1 1 220px;
+    min-width: 0;
+}
+
+.lab-feedback.is-warning {
+    color: var(--color-secondary);
+}
+
+.lab-feedback.is-success {
+    color: var(--color-primary);
+}
+
+/* Hints stay optional and singular — a nudge, not a walkthrough */
+.hint-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.05rem;
+    min-height: 40px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.28);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.hint-toggle:hover {
+    background: rgba(251, 191, 36, 0.14);
+    border-color: rgba(251, 191, 36, 0.5);
+}
+
+.hint-body {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+    background: rgba(251, 191, 36, 0.06);
+    border-left: 2px solid var(--color-secondary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* ===== RESPONSIVE =====
+   Built up from one column so narrow screens get a deliberate
+   layout. Nothing uses fixed widths, so the page cannot scroll
+   sideways at any size. */
+
+/* Small phones: filters and card actions stop competing for
+   the same row, and the leaderboard drops its header row */
+@media (max-width: 560px) {
+    #challenge-browser,
+    #leaderboard-section {
+        padding: 3rem 1rem;
+    }
+
+    .lab-view {
+        padding: 2rem 1rem 4rem;
+    }
+
+    .challenge-card {
+        padding: 1.25rem;
+        gap: 0.6rem;
+    }
+
+    /* Card actions stack. The filter pills deliberately keep their
+       natural width so they wrap across a few compact rows —
+       forcing them full width is what used to eat the screen. */
+    .challenge-card-foot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+    }
+
+    .challenge-start {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* The header row is gone from the markup entirely, so the
+       override that used to hide it here is gone too. */
+    .lb-row {
+        grid-template-columns: 40px 1fr auto;
+        padding: 0.85rem 1rem;
+    }
+
+    /* Completed count hides on the narrowest screens; the XP
+       total is the headline number and stays */
+    .lb-done {
+        display: none;
+    }
+
+    .lab-block {
+        padding: 1.15rem;
+    }
+}
+
+/* Tablet: two columns */
+@media (min-width: 600px) {
+    .challenge-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.35rem;
+    }
+}
+
+/* Narrow widths only. The single-row scrolling pill treatment is
+   shared with every width now (see .filter-chips), so all that's
+   left here is the extra breathing room between the four controls
+   and the wider edge fade for Category. */
+@media (max-width: 767px) {
+    .filters {
+        gap: 1.15rem;
+    }
+
+    /* The count/Reset row is the quietest element here, so it sits a
+       little further from Difficulty than the groups sit from each
+       other. */
+    .filter-foot {
+        margin-top: 0.2rem;
+    }
+
+    /* More room at the end of the row so the last pill clears the
+       fade once scrolled fully. */
+    .filter-chips {
+        padding-right: 2.25rem;
+    }
+
+    /* The soft right edge is applied to Category only. Its six pills
+       overflow on every phone, so the fade reliably means "more to
+       the right". Difficulty's four often fit outright, and a fade
+       there would dim the last pill for no reason — a clean cut edge
+       reads as scrollable well enough on its own. */
+    #filter-categories {
+        mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent 100%);
+    }
+}
+
+/* Desktop: three columns, comfortable centred width */
+@media (min-width: 1024px) {
+    #challenge-browser {
+        padding: 5rem 2.5rem;
+    }
+
+    #leaderboard-section {
+        padding: 5rem 2.5rem;
+    }
+
+    .lab-view {
+        padding: 3.5rem 2.5rem 5.5rem;
+    }
+
+    .challenge-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
+    .challenge-card {
+        padding: 1.75rem;
+    }
+}
+
+/* Large desktop */
+@media (min-width: 1441px) {
+    #challenge-browser,
+    #leaderboard-section {
+        padding: 5.5rem 3rem;
+    }
+}
+
+/* ===== Scroll reveal (shared with the landing page) =====
+   Same reason as in paths.css: .challenge-card and .lb-row both declare
+   their own transition, this stylesheet loads after style.css, and at
+   equal specificity the later rule wins — which drops the opacity half of
+   the fade and leaves the card snapping into place. Restated here at
+   higher specificity, with the hover properties carried over so the
+   existing hover behaviour is untouched. */
+.js-enabled .challenge-card.animate-on-scroll {
+    transition: opacity 0.7s var(--transition-slow),
+                transform 0.7s var(--transition-slow),
+                border-color var(--transition-base),
+                box-shadow var(--transition-base);
+}
+
+.js-enabled .lb-row.animate-on-scroll {
+    transition: opacity 0.7s var(--transition-slow),
+                transform 0.7s var(--transition-slow),
+                background var(--transition-fast);
+}
+
+/* The hover states have to be restated after the reveal. The landing
+   page's .visible rule outranks a plain :hover, so once a card is
+   revealed it would stop responding to the pointer. */
+.js-enabled .challenge-card.animate-on-scroll.visible:hover {
+    transform: translateY(-4px);
+}
+
+/* The shared stagger only covers the first six children. This grid holds
+   twelve, so the pattern is repeated for the second row — otherwise the
+   first six cards ease in one after another and the rest appear all at
+   once. */
+.js-enabled .challenge-card.animate-on-scroll:nth-child(7)  { transition-delay: 0ms; }
+.js-enabled .challenge-card.animate-on-scroll:nth-child(8)  { transition-delay: 100ms; }
+.js-enabled .challenge-card.animate-on-scroll:nth-child(9)  { transition-delay: 200ms; }
+.js-enabled .challenge-card.animate-on-scroll:nth-child(10) { transition-delay: 300ms; }
+.js-enabled .challenge-card.animate-on-scroll:nth-child(11) { transition-delay: 400ms; }
+.js-enabled .challenge-card.animate-on-scroll:nth-child(12) { transition-delay: 500ms; }
